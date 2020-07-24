@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content="MothersElectrical, MothersElectrical.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
+    <meta name="description" content="">
+
+    <!--Adding designing files-->
+    {% load static %}
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic&amp;subset=latin">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="{% static '/bootstrap-material-design-font/css/material.css' %}">
+    <link rel="stylesheet" href="{% static '/tether/tether.min.css' %}">
+    <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static '/dropdown/css/style.css' %}">
+    <link rel="stylesheet" href="{% static '/animate.css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static '/theme/css/style.css' %}">
+    {% block pagecss %}
+    {% endblock pagecss %}
+    <!-- <link rel="stylesheet" href="{% static '/mobirise/css/mbr-additional.css' %}" type="text/css">  -->
+
+    <title>{% block title%} {% endblock title %}</title>
+
+</head>
+
+<body>
+    
+<!-- navbar -->
+    <section id="menu-1">
+        <nav class="navbar navbar-dropdown navbar-fixed-top">
+            <div class="container">
+
+                <div class="mbr-table">
+                    <div class="mbr-table-cell">
+
+                        <div class="navbar-brand">
+
+                            <a class="navbar-caption text-black" href="/">
+                                <strong>MothersElectrical</strong><br/><em>The Electrical Hub</em></a>
+                        </div>
+
+                    </div>
+                    <div class="mbr-table-cell">
+
+                        <button class="navbar-toggler pull-xs-right hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar">
+                            <div class="hamburger-icon"></div>
+                        </button>
+
+                        <ul class="nav-dropdown collapse pull-xs-right nav navbar-nav navbar-toggleable-sm"
+                            id="exCollapsingNavbar">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link link active " href="/">HOME</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link link dropdown-toggle" href="/Products"
+                                    data-toggle="dropdown-submenu" aria-expanded="false">Products</a>
+                                    <span></span>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/Products">All Products</a>
+                                    <a class="dropdown-item" href="/CommercialProducts">Commercial(Housing)</a>
+                                    <a class="dropdown-item" href="/IndustrialProducts">Industrial</a>
+                                    {% comment %} <a class="dropdown-item" href="photo-portfolio/index.html">Photo Portfolio 
+                                        Template</a>{% endcomment %}
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link link " href="/ContactUs"
+                                     aria-expanded="false">Contact Us</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link link " href="/AboutUs"
+                                    aria-expanded="false">About Us</a>
+                            </li>
+                            <!-- <li class="nav-item dropdown">
+                                <a class="nav-link link dropdown-toggle" href="https://mobirisethemes.com/"
+                                    aria-expanded="false" data-toggle="dropdown-submenu"><span
+                                        style="font-weight: normal;">BLOCKS</span></a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="blocks.html#header3-13">INTRO BLOCKS</a>
+                                    <a class="dropdown-item" href="blocks.html#msg-box8-18">CAROUSEL BLOCKS</a>
+                                    <a class="dropdown-item" href="blocks.html#msg-box8-1b">GALLERY BLOCK</a>
+                                    <a class="dropdown-item" href="blocks.html#msg-box8-1f">FEATURES BLOCKS</a>
+                                    <a class="dropdown-item" href="blocks.html#msg-box8-1k">MEDIA BLOCKS</a>
+                                    <a class="dropdown-item" href="blocks.html#msg-box8-1n">ARTICLE BLOCKS</a>
+                                    <a class="dropdown-item" href="blocks.html#msg-box8-1x">INFO BLOCKS</a>
+                                    <a class="dropdown-item" href="blocks.html#msg-box8-22">TESTIMONIAL BLOCKS</a>
+                                    <a class="dropdown-item" href="blocks.html#msg-box8-26" aria-expanded="false">SOCIAL
+                                        BLOCKS</a>
+                                    <a class="dropdown-item" href="blocks.html#msg-box8-2b">PRICING TABLES</a><a
+                                        class="dropdown-item" href="blocks.html#msg-box8-2e">FORM BLOCKS</a>
+                                    <a class="dropdown-item" href="blocks.html#msg-box8-2g">MAP BLOCKS</a>
+                                    <a class="dropdown-item" href="blocks.html#msg-box8-2f">FOOTERS</a>
+                                </div>
+                            </li> -->
+                            <li class="nav-item nav-btn">
+                                <a class="nav-link"
+                                    href="/Retrailers">Our Retrailers</a>
+                            </li>
+                        </ul>
+                        <button hidden="" class="navbar-toggler navbar-close" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar">
+                            <div class="close-icon"></div>
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+
+    </section>
+
+
+{%  block content%} {% endblock content %} 
+
+<!-- -------Footer---------- -->
+    <section class="mbr-section mbr-section-md-padding mbr-footer footer1" id="contacts1-2m"
+        style="background-color: rgb(239, 239, 239); padding-top: 90px; padding-bottom: 90px;">
+
+        <div class="container">
+            <div class="row">
+                <div class="mbr-footer-content col-xs-12 col-md-3">
+                    <div><a href="/"><img width="200px" src="{% static 'img/companylogo2.jpg' %}"></div>
+                </div>
+                <div class="mbr-footer-content col-xs-12 col-md-3">
+                    <p><strong>Address</strong><br>
+                        1234 Street Name<br>
+                        City, AA 99999</p>
+                </div>
+                <div class="mbr-footer-content col-xs-12 col-md-3">
+                    <p><strong>Contacts</strong><br>
+                        Email: support@mothersElectrical.com<br>
+                        Phone: +1 (0) 000 0000 001<br>
+                        Fax: +1 (0) 000 0000 002</p>
+                </div>
+                <div class="mbr-footer-content col-xs-12 col-md-3">
+                    <p><strong>Social Links</strong><br>
+                        <a class="text-black" href="https://facebook.com/"><img  width=50px src="{%static 'img/fb.png'%}" alt="facebook icon"></a>
+                        <a class="text-black" href="https://instagram.com"><img width=50px src="{%static 'img/insta.png'%}" alt="instagram icon"></a>
+                        <a class="text-black" href="https://whatsapp.com"><img width=50px src="{%static 'img/whatsapp.png'%}" alt="
+                        whatsapp icon"></a></p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="mbr-small-footer mbr-section mbr-section-nopadding" id="footer1-2p"
+        style="background-color: rgb(0, 0, 0); padding-top: 1.75rem; padding-bottom: 1.75rem;">
+
+        <div class="container">
+            <p class="text-xs-center">Copyright (c) 2020 Mothers Electrical | <a href="license.txt"
+                    class="text-white">License</a>
+            </p>
+        </div>
+    </footer>
+
+
+    <script src="{% static '/web/assets/jquery/jquery.min.js' %}"></script>
+    <script src="{% static '/tether/tether.min.js' %}"></script>
+    <script src="{% static '/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/smooth-scroll/smooth-scroll.js' %}"></script>
+    <script src="{% static '/dropdown/js/script.min.js' %}"></script>
+    <script src="{% static '/touch-swipe/jquery.touch-swipe.min.js' %}"></script>
+    <script src="{% static '/viewport-checker/jquery.viewportchecker.js' %}"></script>
+    <script src="{% static '/jarallax/jarallax.js' %}"></script>
+    <script src="{% static '/theme/js/script.js' %}"></script>
+    <input name="animation" type="hidden">
+    {% block pagescript %}
+    {% endblock pagescript %}
+</body>
+
+</html>

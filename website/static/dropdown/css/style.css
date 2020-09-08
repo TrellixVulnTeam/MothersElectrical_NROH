@@ -173,6 +173,7 @@
   .nav-dropdown.navbar-toggleable-sm {
     bottom: 0;
     display: none;
+    background-color: gainsboro;
     left: 0;
     overflow-x: hidden;
     position: fixed;

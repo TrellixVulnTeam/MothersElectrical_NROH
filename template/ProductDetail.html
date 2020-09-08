@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}ProductType-Mothers Electrical
+{% endblock title %}
+{% block content %}
+
+<section class="mbr-section mbr-section__container article" id="header3-3v"
+    style="background-color: rgb(239, 239, 239); padding-top: 60px; padding-bottom: 20px; margin-top:50px">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 class="mbr-section-title display-2"> Product Detail </h3>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+ <section class="mbr-cards mbr-section mbr-section-nopadding" id="features3-1g"
+    style="background-color: rgb(255, 255, 255);">
+
+
+
+    <div class="mbr-cards-row row">
+       <div class=" col-xs-12 col-sm-6 col-md-5 col-lg-5" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="container">
+                <div class="card cart-block">
+                    <div><a href="/Products/{{Type}}/Industrial">
+                    <img src="/media/{{Product.p_img}}" width="200px" height="200px" ></a></div>
+                    
+                </div>
+            </div>
+        </div>
+
+         <div class=" col-xs-12 col-sm-6 col-md-7 col-lg-7" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="container">
+                <div class="card cart-block" style="text-align:left">
+                    <div class="card-block">
+                        <h4 class="card-title">{{Product.p_name|capfirst}}</h4>
+                        <p class="card-text">{{ Product.p_desc}}  </p>
+                        <p class="card-text"><strong>Price :  </strong>{{Product.p_price}}
+                        <p class="card-text"><strong>Warranty: </strong>{{ Product.p_warranty}}
+                         <p class="card-text"><strong>Type: </strong>{{ Product.p_type}}
+                         {% comment %} <p class="card-text"><strong>Category: </strong>{{ Product.p_category}} {% endcomment %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</section> 
+{% endblock content %}

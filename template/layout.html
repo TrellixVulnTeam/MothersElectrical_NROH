@@ -3,15 +3,16 @@
 
 <head>
     <!-- Required meta tags-->
+    {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="generator" content="MothersElectrical, MothersElectrical.com">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href=" {% static '/img/logo.png' %}" type="image/x-icon">
     <meta name="description" content="">
 
     <!--Adding designing files-->
-    {% load static %}
+    
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic&amp;subset=latin">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
@@ -44,7 +45,7 @@
                         <div class="navbar-brand">
 
                             <a class="navbar-caption text-black" href="/">
-                                <strong>MothersElectrical</strong><br/><em>The Electrical Hub</em></a>
+                                <img width="70px" src="{% static 'img/logo.png' %}"></a>
                         </div>
 
                     </div>
@@ -58,27 +59,36 @@
                         <ul class="nav-dropdown collapse pull-xs-right nav navbar-nav navbar-toggleable-sm"
                             id="exCollapsingNavbar">
                             <li class="nav-item dropdown">
-                                <a class="nav-link link active " href="/">HOME</a>
+                                <a class="nav-link link active" style="font-size: 15px;" href="/">HOME</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link link dropdown-toggle" href="/Products"
-                                    data-toggle="dropdown-submenu" aria-expanded="false">Products</a>
+                                <a class="nav-link link dropdown-toggle" href="/Products" style="font-size: 15px;"
+                                    data-toggle="dropdown-submenu" aria-expanded="false">PRODUCTS</a>
                                     <span></span>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="/Products">All Products</a>
-                                    <a class="dropdown-item" href="/CommercialProducts">Commercial(Housing)</a>
-                                    <a class="dropdown-item" href="/IndustrialProducts">Industrial</a>
+                                    {% comment %} <a class="dropdown-item" href="#">All Products</a> {% endcomment %}
+                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/Cables">Cables</a>
+                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/Lighting">Lighting</a>
+                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/Sockets">Sockets</a>
+                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/SolarPanel">Solar Panels</a>
+                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/ModernKitchen">Modern Kitchen</a>
+                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/SwitchGear">SwitchGear</a>
+                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/VehiclesCharger">Vehicle Charger</a>
+                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/Fans">Fans</a>
+                                    <a style="font-size: 15px; font-weight: 600;color:black;" class="dropdown-item" href="/AllProducts/Commercial">All Commercial Products</a>
+                                    <a  style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/AllProducts/Industrial">All Industrial Products</a>
+                                    <a  style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/AllProducts/Residential">All Residential Products</a>
                                     {% comment %} <a class="dropdown-item" href="photo-portfolio/index.html">Photo Portfolio 
                                         Template</a>{% endcomment %}
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link link " href="/ContactUs"
-                                     aria-expanded="false">Contact Us</a>
+                                <a class="nav-link link " href="/ContactUs" style="font-size: 15px;"
+                                     aria-expanded="false">CONTACT US</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link link " href="/AboutUs"
-                                    aria-expanded="false">About Us</a>
+                                <a class="nav-link link " href="/AboutUs" style="font-size: 15px;"
+                                    aria-expanded="false">ABOUT US</a>
                             </li>
                             <!-- <li class="nav-item dropdown">
                                 <a class="nav-link link dropdown-toggle" href="https://mobirisethemes.com/"
@@ -102,11 +112,11 @@
                                 </div>
                             </li> -->
                             <li class="nav-item nav-btn">
-                                <a class="nav-link"
-                                    href="/Retrailers">Our Retrailers</a>
+                                <a class="nav-link" style="font-size: 15px;"
+                                    href="/Retrailers">OUR RETRAILER</a>
                             </li>
                         </ul>
-                        <button hidden="" class="navbar-toggler navbar-close" type="button" data-toggle="collapse"
+                        <button style="color:black" hidden="" class="navbar-toggler navbar-close" type="button" data-toggle="collapse"
                             data-target="#exCollapsingNavbar">
                             <div class="close-icon"></div>
                         </button>
@@ -129,27 +139,26 @@
         <div class="container">
             <div class="row">
                 <div class="mbr-footer-content col-xs-12 col-md-3">
-                    <div><a href="/"><img width="200px" src="{% static 'img/companylogo2.jpg' %}"></div>
+                    <div><a href="/"><img width="180px" src="{% static 'img/logo.png' %}"></div>
                 </div>
                 <div class="mbr-footer-content col-xs-12 col-md-3">
                     <p><strong>Address</strong><br>
-                        1234 Street Name<br>
-                        City, AA 99999</p>
+                        Shop No. :- 7, New Market,<br>
+                        Hathua Road Mirganj (841438)</p>
                 </div>
                 <div class="mbr-footer-content col-xs-12 col-md-3">
                     <p><strong>Contacts</strong><br>
                         Email: support@mothersElectrical.com<br>
-                        Phone: +1 (0) 000 0000 001<br>
-                        Fax: +1 (0) 000 0000 002</p>
+                        Moblie: +91 8193945463<br></p>
+                        {% comment %} Fax: +1 (0) 000 0000 002 {% endcomment %}
                 </div>
                 <div class="mbr-footer-content col-xs-12 col-md-3">
                     <p><strong>Social Links</strong><br>
-                        <a class="text-black" href="https://facebook.com/"><img  width=50px src="{%static 'img/fb.png'%}" alt="facebook icon"></a>
+                        <a class="text-black" href="https://www.facebook.com/MothersElectrical"><img  width=50px src="{%static 'img/fb.png'%}" alt="facebook icon"></a>
                         <a class="text-black" href="https://instagram.com"><img width=50px src="{%static 'img/insta.png'%}" alt="instagram icon"></a>
                         <a class="text-black" href="https://whatsapp.com"><img width=50px src="{%static 'img/whatsapp.png'%}" alt="
                         whatsapp icon"></a></p>
                 </div>
-
             </div>
         </div>
     </section>

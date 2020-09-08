@@ -1,7 +1,68 @@
 {% extends 'layout.html' %}
+{% load static %}
 {% block title %}Products-Mothers Electrical
 {% endblock title %}
 
 {% block content %}
-<h2>Products page</h2>
+
+<section class="mbr-section mbr-section__container article" id="header3-3v"
+    style="background-color: rgb(239, 239, 239); padding-top: 60px; padding-bottom: 20px; margin-top:50px">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 class="mbr-section-title display-2">{{Category}} Products</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+ <section class="mbr-cards mbr-section mbr-section-nopadding" id="features3-1g"
+    style="background-color: rgb(255, 255, 255);">
+    <div class="mbr-cards-row row">
+    {% if Products|length > 0 %}
+    {% for Product in Products  %}
+       <div class=" col-xs-12 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="container">
+                <div class="card cart-block">
+                    <div><a href="/ProductDetail/{{Product.p_id}}/"><img src="/media/{{Product.p_img}}" width="200px" height="200px" ></a></div>
+                    <div class="card-block">
+                        <h4 class="card-title">{{Product.p_name}}</h4>
+                        <p class="card-text"><strong>Price :  </strong>{{ Product.p_price}}
+                          <p class="card-text">{{ Product.p_desc|truncatechars:100}} <a href="/ProductDetail/{{Product.p_id}}/">...more</a>
+                        </p>
+                        <p class="card-text"><strong>Warranty: </strong>{{ Product.p_warranty}}
+                         {% comment %} <p class="card-text"><strong>Type: </strong>{{ Product.p_type}}
+                         <p class="card-text"><strong>Category: </strong>{{ Product.p_category}} {% endcomment %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+     {% else %} 
+     <section class="mbr-section article mbr-parallax-background" id="msg-box3-40"
+        style=" padding-top: 120px; padding-bottom: 120px;">
+
+        <div class="mbr-overlay" style="opacity: 0.9; background-color: #eb3d3c42;;">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-xs-center">
+                    <h4 class="mbr-section-title display-4">SOORY ! NO PRODUCTS UNDER THIS CATEGORY</h4>
+                    <h5 class="mbr-section-title display-3">Added Soon</h5>
+                    <div class="lead ">
+                        <p><strong><em>Please Check Frequently, we will very soon as your per requirements.</em></strong></p>
+                    </div>
+                    <!-- <div><a class="btn btn-secondary" href="mobirise-3-bootstrap-template.zip">DOWNLOAD NOW</a> </div> -->
+                </div>
+            </div>
+        </div>
+
+    </section>
+    {% endif %}
+       
+    </div>
+</section> 
+
+</section>
 {% endblock content %}

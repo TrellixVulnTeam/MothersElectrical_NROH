@@ -7,6 +7,10 @@ urlpatterns = [
     path ('',views.index,name='windex'),
     path ('ContactUs/',views.contactus,name="wcontactUs"),
     path ('AboutUs/',views.aboutus,name="wAboutUs"),
-    path ('Products/',views.product,name="wproduct"),
-    path ('Retrailers/',views.retailers,name="retrailers")
+    path ('Products/<str:type>/',views.Type,name="wType"),
+    path ('Products/<str:category>/<str:type>/',views.product,name="wproduct"),
+    path ('Retrailers/',views.retailers,name="wretrailers"),
+    path ('AllProducts/<str:type>/',views.AllProduct,name="wAllProduct"),
+    path ('Logout/',views.handleLogout,name="wlogout"),
+    path('ProductDetail/<int:id>/',views.productDetail,name="wProductDetail")
 ]

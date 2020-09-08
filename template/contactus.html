@@ -4,16 +4,39 @@
 
 {% block content %}
 {% load static %}
-<section class="mbr-section mbr-parallax-background" id="form1-2h" style="background-image: url(assets/images/d5salkdogb4-stefan-widua.jpg); padding-top: 120px; padding-bottom: 120px; margin-top:40px">
+<section class="mbr-section mbr-parallax-background" id="form1-2h"
+    style="background-image: url(assets/images/d5salkdogb4-stefan-widua.jpg); padding-top: 120px; padding-bottom: 120px; margin-top:40px">
     <div class="mbr-overlay" style="opacity: 0.5; background-color: #818a9178;">
     </div>
+
     <div class="mbr-section mbr-section__container mbr-section__container--middle">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 text-xs-center">
+
+                    {% for message in messages  %}
+                    {% if message.tags == "success" and message.message == "Your information successfuly sent. we will contact you very soon.! Thank You"  %}
+                    <div style="background-color:#00ffad61">
+                        <small class="mbr-section-subtitle" style="padding: 10px 0px;
+                    color: #535353;
+                    font-size: 24px;
+                    font-weight: 500;">{{message}}</small>
+                    </div>
+                    {% elif message.tags == "danger" and message.message == "Please Enter the Valid details and fill correclty" %}
+                    <div style="background-color:rgb(253, 136, 136)">
+                        <small class="mbr-section-subtitle" style="padding: 10px 0px;
+                    color: #535353;
+                    font-size: 24px;
+                    font-weight: 500;">{{message}}</small>
+                    </div>
+                    {% endif %}
+
+                    {% endfor %}
                     <h3 class="mbr-section-title display-2">CONTACT FORM</h3>
-                    <small class="mbr-section-subtitle">Shape your future web project with sharp design and refine coded functions.</small>
+                    <small class="mbr-section-subtitle">Shape your future web project with sharp design and refine coded
+                        functions.</small>
                 </div>
+
             </div>
         </div>
     </div>
@@ -24,34 +47,42 @@
 
 
                     <div data-form-alert="true">
-                        <div hidden="" data-form-alert-success="true" class="alert alert-form alert-success text-xs-center">Thanks for filling out form!</div>
+                        <div hidden="" data-form-alert-success="true"
+                            class="alert alert-form alert-success text-xs-center">Thanks for filling out form!</div>
                     </div>
 
 
-                    <form action="https://mobirisethemes.com/" method="post" data-form-title="CONTACT FORM">
+                    <form action="/ContactUs/" method="post" data-form-title="CONTACT FORM">{% csrf_token %}
 
-                        <input type="hidden" value="oREOq6MGQE87nW/6twLmvqfp2XuG4tz2zg+0LmOGGUZRpIU6TKnr1FFEuxOFksfREhl/TS9OrJjo/Y+U++thSxG6/IpKDGxqRJUS/nLXU7S6pEWcg6n8SvoCFefCOcuA" data-form-email="true">
+                        <input type="hidden"
+                            value="oREOq6MGQE87nW/6twLmvqfp2XuG4tz2zg+0LmOGGUZRpIU6TKnr1FFEuxOFksfREhl/TS9OrJjo/Y+U++thSxG6/IpKDGxqRJUS/nLXU7S6pEWcg6n8SvoCFefCOcuA"
+                            data-form-email="true">
 
                         <div class="row row-sm-offset">
 
                             <div class="col-xs-12 col-md-4">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="form1-2h-name">Name<span class="form-asterisk">*</span></label>
-                                    <input type="text" class="form-control" name="name" required="" data-form-field="Name" id="form1-2h-name">
+                                    <label class="form-control-label" for="form1-2h-name">Name<span
+                                            class="form-asterisk">*</span></label>
+                                    <input type="text" class="form-control" name="name" required=""
+                                        data-form-field="Name" id="form1-2h-name">
                                 </div>
                             </div>
 
                             <div class="col-xs-12 col-md-4">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="form1-2h-email">Email<span class="form-asterisk">*</span></label>
-                                    <input type="email" class="form-control" name="email" required="" data-form-field="Email" id="form1-2h-email">
+                                    <label class="form-control-label" for="form1-2h-email">Email<span
+                                            class="form-asterisk">*</span></label>
+                                    <input type="email" class="form-control" name="email" required=""
+                                        data-form-field="Email" id="form1-2h-email">
                                 </div>
                             </div>
 
                             <div class="col-xs-12 col-md-4">
                                 <div class="form-group">
                                     <label class="form-control-label" for="form1-2h-phone">Phone</label>
-                                    <input type="tel" class="form-control" name="phone" data-form-field="Phone" id="form1-2h-phone">
+                                    <input type="tel" class="form-control" name="phone" data-form-field="Phone"
+                                        id="form1-2h-phone">
                                 </div>
                             </div>
 
@@ -59,7 +90,8 @@
 
                         <div class="form-group">
                             <label class="form-control-label" for="form1-2h-message">Message</label>
-                            <textarea class="form-control" name="message" rows="7" data-form-field="Message" id="form1-2h-message"></textarea>
+                            <textarea class="form-control" name="message" rows="7" data-form-field="Message"
+                                id="form1-2h-message"></textarea>
                         </div>
 
                         <div><button type="submit" class="btn btn-black">CONTACT US</button></div>
@@ -69,6 +101,9 @@
             </div>
         </div>
     </div>
+
 </section>
+
+
 
 {% endblock content %}

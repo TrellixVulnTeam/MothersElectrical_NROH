@@ -1,7 +1,92 @@
 {% extends 'layout.html' %}
+{% load static %}
 {% block title %}Retailer-Mothers Electrical
 {% endblock title %}
 
 {% block content %}
-<h2>retrailerrrr page</h2>
+{% if user.is_authenticated %}
+<section class="mbr-section mbr-section__container article" id="header3-3v"
+    style="background-color: rgb(239, 239, 239); padding-top: 60px; padding-bottom: 20px; margin-top:50px">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 class="mbr-section-title display-2">{{Category}} Our Retailer List</h3>
+                <div class="modal-footer">
+                    <form action="/Logout/" method="POST"> {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">LogOut</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+    <div class="table-responsive-sm">
+        <table class="table table-hover table-responsive-sm  table-striped">
+            <thead>
+              <tr>
+                <!-- <th scope="col">#</th> -->
+                <th scope="col">Name</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Address</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for Retrailer in Retrailers %}
+              <tr>
+                <td>{{Retrailer.retrailer_name}}</td>
+                <td>{{Retrailer.retrailer_phone}}</td>
+                <td>{{Retrailer.retrailer_address}}</td>
+              </tr>
+            {% endfor %}
+           
+            </tbody>
+          </table>
+          <!-- #	First	Last	Handle
+          1	Mark -->
+   
+    
+    </div>
+    </div>
+</section>
+{% else %}
+<section class="mbr-section mbr-section__container article" id="header3-3v"
+    style="background-color: rgb(239, 239, 239); padding-top: 60px; padding-bottom: 20px; margin-top:50px">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                {% comment %} <h3 class="mbr-section-title display-2">{{Category}} Products</h3> {% endcomment %}
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row" style="text-align:center;margin-top:40px">
+        <div class="col-xs-12 col-md-offset-4 col-lg-offset-4 col-md-4 col-lg-4">
+            <form class="form-signin" method="POST" action="/Retrailers/"> {% csrf_token %}
+                <div><a href="/"><img width="180px" src="{% static 'img/logo.png' %}"></a></div>
+                <h1 class="h3 mb-3 font-weight-normal" style="margin-top: 40px;">Please sign in</h1>
+                <label for="inputEmail" class="sr-only">Username</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Username" required=""
+                    autofocus="">
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password"
+                    required="">
+                <div class="checkbox mb-3">
+                    <label>
+                        {% comment %} <input type="checkbox" value="remember-me"> Remember me {% endcomment %}
+                    </label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                <p class="mt-5 mb-3 text-muted">© 2020 MothersElectrical</p>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
 {% endblock content %}

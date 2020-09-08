@@ -8,7 +8,7 @@ class Product_detail(models.Model):
     p_type=models.CharField(max_length=50)
     p_category=models.CharField(max_length=50)
     p_subcategory=models.CharField(max_length=50,default='No Subcategory')
-    p_quantity=models.IntegerField(max_length=50,)
+    p_quantity=models.IntegerField()
     p_desc=models.CharField(max_length=750)
     p_warranty=models.CharField(max_length=150)
     publish_date=models.DateField()

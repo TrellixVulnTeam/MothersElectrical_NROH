@@ -1,0 +1,26 @@
+.link_active {
+  border-bottom: 2px solid black;
+}
+.link_active a {
+  color: black !important;
+}
+.banner_FirstWord{
+  color:#d20909fa
+}
+.banner_SecondWord{
+  color:black
+}
+.company_Logo{
+  height:120px;
+  width:170px;
+}
+.product_img{
+  width: 200px;
+  height: 200px;
+}
+@media only screen and (max-width:600px){
+  .product_img{
+    width: 150px;
+    height: 150px;
+  }
+}

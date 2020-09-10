@@ -871,8 +871,8 @@ def Type(request,type):
     return render(request,'Type.html',{'Type':type})
 
 # ---------------------------------
-def product(request,category,type):
-    GetProd=Product_detail.objects.filter(p_type=type,p_category=category)
+def product(request,category,company):
+    GetProd=Product_detail.objects.filter(p_company=company,p_category=category)
     return render(request,'product.html',{'Products':GetProd,'Category':category})
 
 def AllProduct(request,type):

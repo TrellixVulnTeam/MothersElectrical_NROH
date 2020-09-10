@@ -16,7 +16,7 @@ class Product_detail(models.Model):
     p_img=models.ImageField( upload_to='product_img/', height_field=None, width_field=None, default='product_img/noProductImage.png')
 
     def __str__(self):
-        return (f"{self.p_name}-{self.p_category}({self.p_type})") 
+        return (f"{self.p_name}-{self.p_category}-{self.p_company}({self.p_type})") 
 
 # news table
 class News(models.Model):

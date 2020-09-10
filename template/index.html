@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% block title %}Home-MothersElectrical{% endblock title %}
-{% block activeHome %}link_active{% endblock activeHome %} 
+{% block activeHome %}link_active{% endblock activeHome %}
 {% block content %}
 {% load static %}
 <!-- Slideer -->
@@ -14,18 +14,24 @@
                     <li data-app-prevent-settings="" data-target="#slider-19" data-slide-to="1"></li>
                     <li data-app-prevent-settings="" data-target="#slider-19" data-slide-to="2"></li>
                 </ol>
-                <div class="carousel-inner" role="listbox">
+                <div class="carousel-inner" style="margin-top:65px" role="listbox">
                     <div class="mbr-section mbr-section-hero carousel-item dark center mbr-section-full active"
-                        data-bg-video-slide="false" style="background-image: url('{% static "/img/banner2.jpg" %}');">
+                        data-bg-video-slide="false" style="background-image: url('{% static "/img/banner5.jpg" %}');">
                         <div class="mbr-table-cell">
-                            <div class="mbr-overlay" style="background-color: rgb(40, 50, 78);">
+                            <div class="mbr-overlay" style="background-color: #0000ff08 ;">
                             </div>
                             <div class="container-slide container">
-
-                                <div class="row">
+                                <div class="row" style="margin-bottom: 80px;">
                                     <div class="col-md-8 col-md-offset-2 text-xs-center">
-                                        <h2 class="mbr-section-title display-1">Mothers Electrical</h2>
-                                        <p class="mbr-section-lead lead">The Electrical Hub</p>
+                                        <h2 class="mbr-section-title display-1">
+                                            <span class="banner_FirstWord">Mothers</span>
+                                            <span class="banner_SecondWord">Electrical</span>
+                                        </h2>
+                                        <p class="mbr-section-lead lead">
+                                            <strong><span class="banner_SecondWord">The Electrical</span>
+                                                <span class="banner_FirstWord">HUB</span></strong>
+                                            <hr />
+                                        </p>
                                         <!-- <p class="mbr-section-lead lead">Write Some Lines for Client and retailers.
                                             </p> -->
                                         <!-- <div class="mbr-section-btn"><a class="btn btn-lg btn-success"
@@ -38,15 +44,22 @@
                         </div>
                     </div>
                     <div class="mbr-section mbr-section-hero carousel-item dark center mbr-section-full"
-                        data-bg-video-slide="false" style="background-image: url('{% static "/img/banner1.jpg" %}');">
+                        data-bg-video-slide="false" style="background-image: url('{% static "/img/banner6.jpg" %}');">
                         <div class="mbr-table-cell">
-                            <div class="mbr-overlay" style="background-color: rgb(40, 50, 78)"></div>
+                            <div class="mbr-overlay" style="background-color: #0000ff08"></div>
                             <div class="container-slide container">
 
-                                <div class="row">
+                                <div class="row" style="margin-bottom: 80px;">
                                     <div class="col-md-8 col-md-offset-2 text-xs-center">
-                                        <h2 class="mbr-section-title display-1">Mothers Electrical</h2>
-                                        <p class="mbr-section-lead lead">The Electrical Hub</p>
+                                        <h2 class="mbr-section-title display-1">
+                                            <span class="banner_FirstWord">Mothers</span>
+                                            <span class="banner_SecondWord">Electrical</span>
+                                        </h2>
+                                        <p class="mbr-section-lead lead">
+                                            <strong><span class="banner_SecondWord">The Electrical</span>
+                                                <span class="banner_FirstWord">HUB</span></strong>
+                                            <hr />
+                                        </p>
                                         <!-- <p class="mbr-section-lead lead">Write Some Lines for Client and retailers.
                                             </p> -->
                                         <!-- <div class="mbr-section-btn"><a class="btn btn-lg btn-success"
@@ -61,13 +74,20 @@
                     <div class="mbr-section mbr-section-hero carousel-item dark center mbr-section-full"
                         data-bg-video-slide="false" style="background-image: url('{% static "/img/banner3.jpg" %}');">
                         <div class="mbr-table-cell">
-                            <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(47, 29, 97);"></div>
+                            <div class="mbr-overlay" style="background-color: #0000ff08"></div>
                             <div class="container-slide container">
 
-                                <div class="row">
+                                <div class="row" style="margin-bottom: 80px;">
                                     <div class="col-md-8 col-md-offset-2 text-xs-center">
-                                        <h2 class="mbr-section-title display-1">Mothers Electrical</h2>
-                                        <p class="mbr-section-lead lead">The Electrical Hub</p>
+                                        <h2 class="mbr-section-title display-1">
+                                            <span class="banner_FirstWord">Mothers</span>
+                                            <span class="banner_SecondWord">Electrical</span>
+                                        </h2>
+                                        <p class="mbr-section-lead lead">
+                                            <strong><span class="banner_SecondWord">The Electrical</span>
+                                                <span class="banner_FirstWord">HUB</span></strong>
+                                            <hr />
+                                        </p>
                                         <!-- <p class="mbr-section-lead lead">Write Some Lines for Client and retailers.
                                             </p> -->
                                         <!-- <div class="mbr-section-btn"><a class="btn btn-lg btn-success"
@@ -154,14 +174,14 @@
     style="background-color: rgb(239, 239, 239);">
 
     <div class="mbr-cards-row row">
-       
+
         <div class="mbr-cards-col col-xs-12 col-lg-3" style="padding-top: 40px; padding-bottom: 80px;">
             <div class="container">
                 <div class="card cart-block">
-                    <div class="card-img"><a href="/Products/Cables"><img src="{% static 'img/cable.png' %}"
+                    <div class="card-img"><a href="/Products/Wires"><img src="{% static 'img/cable.png' %}"
                                 class="card-img-top"></a></div>
                     <div class="card-block">
-                        <h4 class="card-title"><a href="/Products/Cables" class="text-black">Cables</a>
+                        <h4 class="card-title"><a href="/Products/Wires" class="text-black">Wires</a>
                         </h4>
                     </div>
                 </div>
@@ -175,9 +195,18 @@
                     <div class="card-block">
                         <h4 class="card-title"><a href="/Products/Fans" class="text-black">Fans</a>
                         </h4>
-
-
-
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mbr-cards-col col-xs-12 col-lg-3" style="padding-top: 40px; padding-bottom: 80px;">
+            <div class="container">
+                <div class="card cart-block">
+                    <div class="card-img"><a href="/Products/ModernKitchen"><img
+                                src="{% static 'img/modernkitchen.png' %}" class="card-img-top"></a></div>
+                    <div class="card-block">
+                        <h4 class="card-title"><a href="/Products/ModernKitchen" class="text-black">Modern
+                                Kitchen</a></h4>
                     </div>
                 </div>
             </div>

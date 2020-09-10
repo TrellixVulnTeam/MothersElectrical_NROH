@@ -1,7 +1,8 @@
 {% extends 'layout.html' %}
 {% load static %}
-{% block title %}Products-Mothers Electrical
+{% block title %}Products-MothersElectrical
 {% endblock title %}
+{% block activeProduct %}link_active{% endblock activeProduct %}
 
 {% block content %}
 
@@ -21,14 +22,14 @@
     <div class="mbr-cards-row row">
     {% if Products|length > 0 %}
     {% for Product in Products  %}
-       <div class=" col-xs-12 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+       <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style=" padding-bottom: 80px;">
             <div class="container">
                 <div class="card cart-block">
-                    <div><a href="/ProductDetail/{{Product.p_id}}/"><img src="/media/{{Product.p_img}}" width="200px" height="200px" ></a></div>
+                    <div><a href="/ProductDetail/{{Product.p_id}}/"><img src="/media/{{Product.p_img}}" class="product_img" ></a></div>
                     <div class="card-block">
                         <h4 class="card-title">{{Product.p_name}}</h4>
-                        <p class="card-text"><strong>Price :  </strong>{{ Product.p_price}}
-                          <p class="card-text">{{ Product.p_desc|truncatechars:100}} <a href="/ProductDetail/{{Product.p_id}}/">...more</a>
+                        <p class="card-text"><strong>Price :  </strong>{{ Product.p_price}} INR
+                          <p class="card-text">{{ Product.p_desc|truncatechars:60}} <a href="/ProductDetail/{{Product.p_id}}/">...more</a>
                         </p>
                         <p class="card-text"><strong>Warranty: </strong>{{ Product.p_warranty}}
                          {% comment %} <p class="card-text"><strong>Type: </strong>{{ Product.p_type}}

@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{% static '/dropdown/css/style.css' %}">
     <link rel="stylesheet" href="{% static '/animate.css/animate.min.css' %}">
     <link rel="stylesheet" href="{% static '/theme/css/style.css' %}">
+    <link rel="stylesheet" href="{% static '/myCss.css'%}">
     {% block pagecss %}
     {% endblock pagecss %}
     <!-- <link rel="stylesheet" href="{% static '/mobirise/css/mbr-additional.css' %}" type="text/css">  -->
@@ -58,38 +59,38 @@
 
                         <ul class="nav-dropdown collapse pull-xs-right nav navbar-nav navbar-toggleable-sm"
                             id="exCollapsingNavbar">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link link active" style="font-size: 15px;" href="/">HOME</a>
+                            <li class="nav-item dropdown {% block activeHome %} {% endblock activeHome %}">
+                                <a class="nav-link link " style="font-size: 15px;" href="/">HOME</a>
                             </li>
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown {% block activeAbout %} {% endblock activeAbout %}">
+                                <a class="nav-link link " href="/AboutUs" style="font-size: 15px;"
+                                    aria-expanded="false">ABOUT US</a>
+                            </li>
+                            <li class="nav-item dropdown {% block activeProduct %} {% endblock activeProduct %}">
                                 <a class="nav-link link dropdown-toggle" href="/Products" style="font-size: 15px;"
                                     data-toggle="dropdown-submenu" aria-expanded="false">PRODUCTS</a>
                                     <span></span>
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu ">
                                     {% comment %} <a class="dropdown-item" href="#">All Products</a> {% endcomment %}
-                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/Cables">Cables</a>
+                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/Wires">Wires</a>
                                     <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/Lighting">Lighting</a>
                                     <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/Sockets">Sockets</a>
-                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/SolarPanel">Solar Panels</a>
                                     <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/ModernKitchen">Modern Kitchen</a>
                                     <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/SwitchGear">SwitchGear</a>
-                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/VehiclesCharger">Vehicle Charger</a>
                                     <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/Fans">Fans</a>
-                                    <a style="font-size: 15px; font-weight: 600;color:black;" class="dropdown-item" href="/AllProducts/Commercial">All Commercial Products</a>
-                                    <a  style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/AllProducts/Industrial">All Industrial Products</a>
-                                    <a  style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/AllProducts/Residential">All Residential Products</a>
                                     {% comment %} <a class="dropdown-item" href="photo-portfolio/index.html">Photo Portfolio 
                                         Template</a>{% endcomment %}
                                 </div>
                             </li>
-                            <li class="nav-item dropdown">
+                            <li class="nav-item nav-btn {% block activeRetailer %} {% endblock activeRetailer %}">
+                                <a class="nav-link" style="font-size: 15px;"
+                                    href="/Retrailers">OUR RETAILER</a>
+                            </li>
+                            <li class="nav-item dropdown {% block activeContactus %} {% endblock activeContactus %}">
                                 <a class="nav-link link " href="/ContactUs" style="font-size: 15px;"
                                      aria-expanded="false">CONTACT US</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link link " href="/AboutUs" style="font-size: 15px;"
-                                    aria-expanded="false">ABOUT US</a>
-                            </li>
+                            
                             <!-- <li class="nav-item dropdown">
                                 <a class="nav-link link dropdown-toggle" href="https://mobirisethemes.com/"
                                     aria-expanded="false" data-toggle="dropdown-submenu"><span
@@ -111,10 +112,7 @@
                                     <a class="dropdown-item" href="blocks.html#msg-box8-2f">FOOTERS</a>
                                 </div>
                             </li> -->
-                            <li class="nav-item nav-btn">
-                                <a class="nav-link" style="font-size: 15px;"
-                                    href="/Retrailers">OUR RETRAILER</a>
-                            </li>
+                            
                         </ul>
                         <button style="color:black" hidden="" class="navbar-toggler navbar-close" type="button" data-toggle="collapse"
                             data-target="#exCollapsingNavbar">

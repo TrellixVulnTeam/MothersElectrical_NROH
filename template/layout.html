@@ -187,7 +187,7 @@
     </footer>
 
 
-    <script src="{% static '/web/assets/jquery/jquery.min.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-1.11.0.js" integrity="sha256-zgND4db0iXaO7v4CLBIYHGoIIudWI5hRMQrPB20j0Qw=" crossorigin="anonymous"></script>
     <script src="{% static '/tether/tether.min.js' %}"></script>
     <script src="{% static '/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static '/smooth-scroll/smooth-scroll.js' %}"></script>
@@ -236,6 +236,7 @@
             let productsNameList = JSON.parse(localStorage.getItem('productsName'))
             let cart = JSON.parse(localStorage.getItem('cart'))
             let itemsDetailsInCart = ""
+            console.log(productsNameList)
             if (productsNameList === null) {
                 itemsDetailsInCart = "<div class='cartDetailsInNav'><p class='cartDetailsInNav_Heading' >Oops...! Your cart is empty</p></div>"
             }
@@ -244,8 +245,9 @@
                 itemsDetailsInCart = "<div id='cartDetailsInNav' class='cartDetailsInNav'><p class='cartDetailsInNav_Heading' > Items in your cart<a href='/Checkout' class='btn btn-md btn-danger-outline btn-danger ' style='padding: 7px;font-weight: bolder;float:right; margin-left:0px; font-style: italic; border-radius:0px; '>Checkout</a></p>"
                 let forLoopCounter = 0
                 for (const item in productsNameList) {
+                    console.log(productsNameList[item][0])
                     forLoopCounter++;
-                    itemsDetailsInCart = itemsDetailsInCart + "<p class='cartDetailsInNav_Content'><strong>" + forLoopCounter + ". </strong>" + productsNameList[item].slice(0, 20) + " , QTY " + cart[item] + "</P>"
+                    itemsDetailsInCart = itemsDetailsInCart + "<p class='cartDetailsInNav_Content'><strong>" + forLoopCounter + ". </strong>" + productsNameList[item][0].slice(0, 20) + " , QTY " + cart[item] + "</P>"
 
                 }
                 itemsDetailsInCart = itemsDetailsInCart + "</div>"

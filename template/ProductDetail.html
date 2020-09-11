@@ -89,7 +89,7 @@
 
             }
             cart[idstr] = 1;
-            productsName[idstr] = document.getElementById('name' + idstr).innerHTML
+            productsName[idstr] = [document.getElementById('name' + idstr).innerHTML,document.getElementById('price'+idstr).innerHTML]
             localStorage.setItem('productsName', JSON.stringify(productsName))
 
         }

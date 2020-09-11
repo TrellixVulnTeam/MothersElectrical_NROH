@@ -5,13 +5,57 @@
 
 {% block content %}
 {% load static %}
-<section class="mbr-section mbr-parallax-background" id="form1-2h"
-    style="background-image: url(assets/images/d5salkdogb4-stefan-widua.jpg); padding-top: 120px; padding-bottom: 120px; margin-top:40px">
-    <div class="mbr-overlay" style="opacity: 0.5; background-color: #818a9178;">
+
+<section class="mbr-section mbr-parallax-background " id="form1-2h"
+    style="background-image: url(assets/images/d5salkdogb4-stefan-widua.jpg); padding-top: 54px; padding-bottom: 12px ; margin-top:40px">
+
+    <div class="checkout_PreMsg" role="alert">
+        <p><strong><em>There is some important thing must you before you placed your order :-</em></strong></p>
+        <p>1. We deliverd our product only in 10 km radius from new market, mirganj
+            </br>2. We will charged a delivery fee, if order value below 2000.
+            </br>3. You need to pay 30% advanced, if order value above 30,000.
+    </div>
+    <div class="container m-x-4 m-y-2">
+        <form id='sendOTPForm' class="sendOTPForm">
+            <h4>Step 1: Verified your moblie nummber</h4>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Moblie Number</label>
+                <input type="phone" class="form-control form-control-sm" id="InputPhone" style="min-height: 0px;
+               padding:5px;" aria-describedby="emailHelp" placeholder="Enter Moblie Number">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your moblie with anyone
+                    else.</small>
+                <span id=verifyOTP></span>
+
+            </div>
+            <span id=verifyOTPbtn>
+                <button id="SendOTP" type="submit" class="btn btn-success-outline" style="padding: 5px;
+            font-weight: bolder;
+            margin-left: 0px;
+            font-style: italic;
+            border-radius: 0px;">Send OTP</button></span>
+        </form>
     </div>
 
+
+
+
 </section>
-
-
-
 {% endblock content %}
+{% block pagescript %}
+<script>
+    $('#sendOTPForm').submit(function (event) {
+        event.preventDefault();
+        console.log('running')
+        document.getElementById('verifyOTP').innerHTML = `</br><label for="exampleInputEmail1">OTP</label>
+              <input type="text" class="form-control form-control-sm" id="InputOTP" style="min-height: 0px;
+               padding:5px;" aria-describedby="emailHelp" placeholder="Enter OTP(One Time Password)">`
+        document.getElementById('verifyOTPbtn').innerHTML = ` <button id="verifyOTP" type="submit" class="btn btn-success-outline" style="padding: 5px;
+            font-weight: bolder;
+            margin-left: 0px;
+            font-style: italic;
+            border-radius: 0px;">Verify OTP</button></span>`
+    })
+
+
+</script>
+{% endblock pagescript%}

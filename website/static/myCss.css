@@ -49,3 +49,8 @@
   font-family: sans-serif;
   line-height: 10px;
 }
+.checkout_PreMsg{
+  background-color: #f3c649a6;
+  color: #2d2d2d;
+  padding: 12px 20px;
+}

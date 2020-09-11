@@ -29,7 +29,7 @@
                                 class="product_img"></a></div>
                     <div class="card-block">
                         <h4 id="namepr{{Product.p_id}}" class="card-title">{{Product.p_name}}</h4>
-                        <p class="card-text"><strong>Price : </strong>{{ Product.p_price}} INR
+                        <p  class="card-text"><strong>Price : </strong><span id="pricepr{{Product.p_id}}">{{ Product.p_price}}</span> INR
                         <p class="card-text">{{ Product.p_desc|truncatechars:60}} <a
                                 href="/ProductDetail/{{Product.p_id}}/">...more</a>
                         </p>
@@ -105,7 +105,7 @@
                 productsName = JSON.parse(localStorage.getItem('productsName'))
             }
             cart[idstr] = 1;
-            productsName[idstr] = document.getElementById('name' + idstr).innerHTML
+            productsName[idstr] = [document.getElementById('name' + idstr).innerHTML,document.getElementById('price'+idstr).innerHTML]
             localStorage.setItem('productsName', JSON.stringify(productsName))
         }
         localStorage.setItem('cart', JSON.stringify(cart))

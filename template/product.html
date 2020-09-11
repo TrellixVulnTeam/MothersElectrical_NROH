@@ -76,37 +76,43 @@
 {% endblock content %}
 {% block pagescript %}
 <script>
-    if (localStorage.getItem('cart') === null) {
+    if (JSON.parse(localStorage.getItem('cart')) === null) {
         var cart = {};
+        updateCart(cart)
     }
     else {
         cart = JSON.parse(localStorage.getItem('cart'))
         updateCart(cart)
     }
 
+
+    // Items are Added into cart
     $('.cart').click(function () {
         var idstr = this.id.toString();
+        if (JSON.parse(localStorage.getItem('cart')) !== null) {
+            cart = JSON.parse(localStorage.getItem('cart'))
+        }
         if (cart[idstr] !== undefined) {
             cart[idstr] = cart[idstr] + 1
 
         }
         else {
-            if (localStorage.getItem('productsName') === null) {
-                var productsName = {}
+            if (JSON.parse(localStorage.getItem('productsName')) === null) {
+                var productsName = {};
             }
             else {
+                console.log('running-2')
                 productsName = JSON.parse(localStorage.getItem('productsName'))
-
             }
-            cart = JSON.parse(localStorage.getItem('cart'))
             cart[idstr] = 1;
             productsName[idstr] = document.getElementById('name' + idstr).innerHTML
             localStorage.setItem('productsName', JSON.stringify(productsName))
-
         }
         localStorage.setItem('cart', JSON.stringify(cart))
         updateCart(JSON.parse(localStorage.getItem('cart')))
     })
+
+
 
     // item Decrement in Cart
     $('.divpr').on('click', 'button.minus', function () {
@@ -119,6 +125,8 @@
         localStorage.setItem('cart', JSON.stringify(cart))
         updateCart(cart)
     })
+
+
 
     // Item increment in cart
     $('.divpr').on('click', 'button.plus', function () {

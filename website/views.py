@@ -911,5 +911,10 @@ def handleLogout(request):
         return HttpResponse("Logout page")
 
 
+#------------------Checkout----------------
+def checkout(request):
+    return render(request,'checkout.html')
+
+
 
     

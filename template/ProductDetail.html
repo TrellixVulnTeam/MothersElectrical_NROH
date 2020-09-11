@@ -37,13 +37,19 @@
             <div class="container">
                 <div class="card cart-block" style="text-align:left">
                     <div class="card-block">
-                        <h4 class="card-title">{{Product.p_name|capfirst}}</h4>
+                        <h4 id="namepr{{Product.p_id}}" class="card-title">{{Product.p_name|capfirst}}</h4>
                         <p class="card-text">{{ Product.p_desc}}  </p>
                         <p class="card-text"><strong>Price :  </strong>{{Product.p_price}} INR
                         <p class="card-text"><strong>Warranty: </strong>{{ Product.p_warranty}}
                          <p class="card-text"><strong>Type: </strong>{{ Product.p_type}}
                          {% comment %} <p class="card-text"><strong>Category: </strong>{{ Product.p_category}} {% endcomment %}
                         </p>
+                        <span id='divpr{{Product.p_id}}' class="divpr">
+                            <button class="btn btn-md btn-danger-outline btn-danger cart" id="pr{{Product.p_id}}"
+                                style="padding: 7px;font-weight: bolder;margin-top: 18px; font-style: italic; ">
+                                Add To Cart
+                            </button>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -51,3 +57,60 @@
     </div>
 </section> 
 {% endblock content %}
+{% block pagescript %}
+<script>
+    if (localStorage.getItem('cart') === null) {
+        var cart = {};
+    }
+    else {
+        cart = JSON.parse(localStorage.getItem('cart'))
+        updateCart(cart)
+    }
+
+    $('.cart').click(function () {
+        var idstr = this.id.toString();
+        if (cart[idstr] !== undefined) {
+            cart[idstr] = cart[idstr] + 1
+
+        }
+        else {
+            if (localStorage.getItem('productsName') === null) {
+                var productsName = {}
+            }
+            else {
+                productsName = JSON.parse(localStorage.getItem('productsName'))
+
+            }
+            cart = JSON.parse(localStorage.getItem('cart'))
+            cart[idstr] = 1;
+            productsName[idstr] = document.getElementById('name' + idstr).innerHTML
+            localStorage.setItem('productsName', JSON.stringify(productsName))
+
+        }
+        localStorage.setItem('cart', JSON.stringify(cart))
+        updateCart(JSON.parse(localStorage.getItem('cart')))
+    })
+
+    // item Decrement in Cart
+    $('.divpr').on('click', 'button.minus', function () {
+        let cart = JSON.parse(localStorage.getItem('cart'))
+        let itemId = this.id.slice(5,)
+        cart[itemId] = cart[itemId] - 1
+        cart[itemId] = Math.max(0, cart[itemId])
+
+        document.getElementById(itemId).innerHTML = cart[itemId]
+        localStorage.setItem('cart', JSON.stringify(cart))
+        updateCart(cart)
+    })
+
+    // Item increment in cart
+    $('.divpr').on('click', 'button.plus', function () {
+        let cart = JSON.parse(localStorage.getItem('cart'))
+        let itemId = this.id.slice(4,)
+        cart[itemId] = cart[itemId] + 1
+        document.getElementById(itemId).innerHTML = cart[itemId]
+        localStorage.setItem('cart', JSON.stringify(cart))
+        updateCart(cart)
+    })
+</script>
+{%endblock pagescript%}

@@ -1,8 +1,10 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from .models import Product_detail,News,Retrailer_Detail
 from django.contrib import messages
+
+import json 
 # ----for sending email---
 import os
 import smtplib
@@ -913,8 +915,38 @@ def handleLogout(request):
 
 #------------------Checkout----------------
 def checkout(request):
-    return render(request,'checkout.html')
+    isMoblieVerified=False
+    if request.method=="POST" :
+        phone=request.POST.get('phone')
+        phoneOTP=request.POST.get('phoneOTP')
+        print(phone, phoneOTP)
+        if phoneOTP==None:
+            userMoblieNumber=phone
+            return HttpResponse('send OTP')
+        else:
+            print(' we goes otp verification')
+            isMoblieVerified=True
+            # response = json.dumps({"isMoblieVerified":isMoblieVerified}, default=str)
+            # return HttpResponse(response)
+            return JsonResponse({"isMoblieVerified":isMoblieVerified})
 
 
+    return render(request,'checkout.html',{"isMoblieVerified":isMoblieVerified})
+
+# ---------------------PlacedOrder-----------
+def placedOrder(request):
+    if request.method=="POST":
+        clientOrder=request.POST.get('bookedOrder')
+        clientName=request.POST.get('clientName')
+        clientMoblie=request.POST.get('clientMoblie')
+        clientAddress1=request.POST.get('clientAddress1')
+        clientAddress2=request.POST.get('clientAddress2')
+        clientState=request.POST.get('clientState')
+        clientCity=request.POST.get('clientCity')
+        clientZip=request.POST.get('clientZip')
+        clientEmail=request.POST.get('clientEmail')
+        clientAltMoblie=request.POST.get('clientAltMoblie')
+        print(clientOrder ,clientName ,clientEmail,clientMoblie,clientAltMoblie,clientAddress1,clientAddress2,clientState,clientCity,clientZip)
+    return render(request,'placedOrder.html')
 
     

@@ -200,6 +200,7 @@
     <script>
         // Update the cart items
         function updateCart(cart) {
+            console.log(cart)
             var itemsInCart = 0
             let productsName=JSON.parse(localStorage.getItem('productsName'))
             for (const item in cart) {
@@ -219,6 +220,7 @@
                 }
             }
             console.log(cart)
+            localStorage.setItem('cart',JSON.stringify(cart))
             localStorage.setItem('productsName',JSON.stringify(productsName))
             document.getElementById('cartCount').innerHTML = itemsInCart
         }

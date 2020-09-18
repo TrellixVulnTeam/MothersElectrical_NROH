@@ -760,7 +760,7 @@ a.es-button {{
                                                                         <table width="100%" cellspacing="0" cellpadding="0">
                                                                             <tbody>
                                                                                 <tr>
-                                                                                    <td class="esd-block-image es-p20r es-p20l" align="center" style="font-size:0"><a target="_blank"><img class="adapt-img" src="http://127.0.0.1:8000/static/img/logo.png" alt="Image" style="display: block;" title="Image" width="180"></a></td>
+                                                                                    <td class="esd-block-image es-p20r es-p20l" align="center" style="font-size:0"><a target="_blank"><img class="adapt-img" src="cid:Logo.jpg" alt="Image" style="display: block;" title="Image" width="180"></a></td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -875,7 +875,6 @@ a.es-button {{
     <div style="position: absolute; left: -9999px; top: -9999px; margin: 0px;"></div>
 </body>
 </html>""".format(fname=name, fmessage=message,fphone=phone,femail=email), subtype='html')
-
             with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
                 smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
                 smtp.send_message(msg)
@@ -997,8 +996,7 @@ def placedOrder(request):
         clientEmail=request.POST.get('clientEmail')
         clientAltMoblie=request.POST.get('clientAltMoblie')
         orderDate=datetime.now()
-        print(clientOrder ,clientName ,clientEmail,clientMoblie,clientAltMoblie,clientAddress1,clientAddress2,clientState,clientCity,clientZip,orderDate)
-       
+
         order=OrderDetail(order_Items=clientOrder,order_Total=order_TotalPrice,c_Name=clientName,c_Moblie=clientMoblie,c_AltMoblie=clientAltMoblie,c_Address=clientAddress1,c_Address2=clientAddress2,
         c_Email=clientEmail,c_State=clientState,c_City=clientCity,c_Zip=clientZip,Date=orderDate)
         order.save()

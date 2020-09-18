@@ -9,6 +9,24 @@
 <section class="mbr-section mbr-parallax-background " id="form1-2h"
     style="background-image: url(assets/images/d5salkdogb4-stefan-widua.jpg); padding-top: 54px; padding-bottom: 12px ; margin-top:40px">
 
+<!-- Notification Modal -->
+<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="my-modal-header" id='modalContent'>
+            
+        </div>
+        <div class="my-modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding: 5px;
+          font-weight: bolder;
+          margin-left: 0px;
+          font-style: italic;
+          border-radius: 0px;">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <div class="checkout_PreMsg" role="alert">
         <p><strong><em>There is some important thing must you before you placed your order :-</em></strong></p>
         <p>1. We deliverd our product only in 10 km radius from new market, mirganj
@@ -75,6 +93,15 @@
         })
             .done(function (data) {
                 console.log(data)
+                if(data.message!==''){
+                    if(data.msgTag=="success"){
+                        document.getElementById('modalContent').innerHTML=` <img src="{% static '/img/success.png' %}" alt="success" width="30px">   ${data.message}`
+                    }
+                    else{
+                        document.getElementById('modalContent').innerHTML=` <img src="{% static '/img/error.png' %}" alt="success" width="30px">   ${data.message}`
+                    }
+                    $('#alertModal').modal('show')
+                }
             })
         let userNumber = document.getElementById('inputPhone').value
         console.log(userNumber)
@@ -111,6 +138,14 @@
         })
             .done(function (data) {
                 console.log(data)
+                if(data.msgTag=="success"){
+                    document.getElementById('modalContent').innerHTML=` <img src="{% static '/img/success.png' %}" alt="success" width="30px">   ${data.message}`
+                }
+                else{
+                    document.getElementById('modalContent').innerHTML=` <img src="{% static '/img/error.png' %}" alt="success" width="30px">   ${data.message}`
+                }
+                $('#alertModal').modal('show')
+
                 if (data.isMoblieVerified) {
                     let cart = JSON.parse(localStorage.getItem('cart'))
                     let productList = JSON.parse(localStorage.getItem('productsName'))
@@ -165,6 +200,7 @@
             <h4>Step 3: Fill your details and Placed order here</h4>
             <div class="form-row">
                 <input type="hidden" id="bookedOrder" name="bookedOrder" value=${bookedOrder}>
+                <input type="hidden" id="orderTotalPrice" name="orderTotalPrice" value=${subTotalOfOrder}>
                 <div class="form-group col-md-6">
                     <label for="clientName">Name</label>
                     <input id="clientName" name="clientName" type="text" class="form-control form-control-sm inputOTP"

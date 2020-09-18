@@ -1,8 +1,13 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
-from .models import Product_detail,News,Retrailer_Detail
+from .models import Product_detail,News,Retrailer_Detail,OrderDetail,clientMoblie
 from django.contrib import messages
+from datetime import datetime
+import random
+import string
+import requests
+
 
 import json 
 # ----for sending email---
@@ -16,6 +21,19 @@ from django.contrib.auth import authenticate, logout, login # ---for user login 
 BLOG_POSTS_PER_PAGE = 2
 EMAIL_ADDRESS = "rahultest445@gmail.com"
 EMAIL_PASSWORD = "Test#123"
+oneTimePassword='xxx'
+url = "https://www.fast2sms.com/dev/bulk" #---fast2sms url
+
+# -----------Generate alphaNumeric string
+def get_random_alphanumeric_string(letters_count, digits_count):
+    sample_str = ''.join((random.choice(string.ascii_letters) for i in range(letters_count)))
+    sample_str += ''.join((random.choice(string.digits) for i in range(digits_count)))
+
+    # Convert string to list and shuffle it to mix letters and digits
+    sample_list = list(sample_str)
+    random.shuffle(sample_list)
+    final_string = ''.join(sample_list)
+    return final_string
 # Create your views here.
 # ---------------------------------
 def index(request):
@@ -916,19 +934,50 @@ def handleLogout(request):
 #------------------Checkout----------------
 def checkout(request):
     isMoblieVerified=False
+    global oneTimePassword
     if request.method=="POST" :
         phone=request.POST.get('phone')
         phoneOTP=request.POST.get('phoneOTP')
         print(phone, phoneOTP)
         if phoneOTP==None:
             userMoblieNumber=phone
-            return HttpResponse('send OTP')
+            getClients=clientMoblie.objects.filter(clientMoblieNumber=phone)
+            
+            if len(getClients)==0:
+                print('number save in db')
+                saveMoblie=clientMoblie(clientMoblieNumber=userMoblieNumber)
+                saveMoblie.save()
+
+            # write a code to send a OTP msg to customer moblies
+            oneTimePassword=get_random_alphanumeric_string(5, 3)
+            payload = "sender_id=MEOTP&language=english&route=qt&numbers="+userMoblieNumber+"&message=36259&variables={#BB#}&variables_values="+oneTimePassword+""
+            print(payload)
+            headers = {
+                        'authorization': "ZnmqBLXuWcHiG8jSCJ95do2bQ06p4R3k7tAFIaNMgvsP1wVhfDHER3mgUcbWXyzjMr6weJ250qOdZuf4", #---- api authorization key
+                        'cache-control': "no-cache",
+                        'content-type': "application/x-www-form-urlencoded"
+                         }
+            response = requests.request("POST", url, data=payload, headers=headers)
+            responseJson=json.loads(response.text)
+            msgTag="success"
+            msg=f"OTP(One Time Password is successfully send on this {phone}"
+            if responseJson['message'][0]!='Message sent successfully':
+                msgTag='error'
+                msg=f"Something is wrong, Please retry after sometime"
+           
+            return JsonResponse({"message":msg,'otp':oneTimePassword,"msgTag":msgTag})
+
         else:
-            print(' we goes otp verification')
-            isMoblieVerified=True
-            # response = json.dumps({"isMoblieVerified":isMoblieVerified}, default=str)
-            # return HttpResponse(response)
-            return JsonResponse({"isMoblieVerified":isMoblieVerified})
+            print(oneTimePassword)
+            if phoneOTP==oneTimePassword:
+                 isMoblieVerified=True
+                 msgTag='success'
+                 msg=f"OTP(One Time Password is Successfully Verified {phone}"
+            else:
+                 msgTag='error'
+                 msg=f"You enter wrong OTP(One Time Password),Please enter carefully"
+           
+            return JsonResponse({"isMoblieVerified":isMoblieVerified,"message":msg,"msgTag":msgTag})
 
 
     return render(request,'checkout.html',{"isMoblieVerified":isMoblieVerified})
@@ -937,6 +986,7 @@ def checkout(request):
 def placedOrder(request):
     if request.method=="POST":
         clientOrder=request.POST.get('bookedOrder')
+        order_TotalPrice=request.POST.get('orderTotalPrice')
         clientName=request.POST.get('clientName')
         clientMoblie=request.POST.get('clientMoblie')
         clientAddress1=request.POST.get('clientAddress1')
@@ -946,7 +996,34 @@ def placedOrder(request):
         clientZip=request.POST.get('clientZip')
         clientEmail=request.POST.get('clientEmail')
         clientAltMoblie=request.POST.get('clientAltMoblie')
-        print(clientOrder ,clientName ,clientEmail,clientMoblie,clientAltMoblie,clientAddress1,clientAddress2,clientState,clientCity,clientZip)
-    return render(request,'placedOrder.html')
+        orderDate=datetime.now()
+        print(clientOrder ,clientName ,clientEmail,clientMoblie,clientAltMoblie,clientAddress1,clientAddress2,clientState,clientCity,clientZip,orderDate)
+       
+        order=OrderDetail(order_Items=clientOrder,order_Total=order_TotalPrice,c_Name=clientName,c_Moblie=clientMoblie,c_AltMoblie=clientAltMoblie,c_Address=clientAddress1,c_Address2=clientAddress2,
+        c_Email=clientEmail,c_State=clientState,c_City=clientCity,c_Zip=clientZip,Date=orderDate)
+        order.save()
+
+        getBookedOdr=OrderDetail.objects.latest('order_id')
+        print(getBookedOdr.order_Items)
+        print('line 994',type(getBookedOdr.order_Items))
+        booked_order_items=json.loads(getBookedOdr.order_Items)
+        print('line 944',booked_order_items)
+        print('line 995', type(booked_order_items))
+        DetailForInvoice={
+            'c_Name':getBookedOdr.c_Name,
+            'c_Moblie':getBookedOdr.c_Moblie,
+            'c_AltMoblie':getBookedOdr.c_AltMoblie,
+            'c_Address':getBookedOdr.c_Address,
+            'c_Address2':getBookedOdr.c_Address,
+            'c_Email':getBookedOdr.c_Email,
+            'c_State':getBookedOdr.c_State,
+            'c_City':getBookedOdr.c_City,  
+            'c_Zip':getBookedOdr.c_Zip,
+            'Date':getBookedOdr.Date,
+            'order_Total':getBookedOdr.order_Total   
+             }
+        return render(request,'placedOrder.html',{'TempInvoice':DetailForInvoice,'order_items':booked_order_items,'totalprice':order_TotalPrice})
+
+    return render(request,'checkout.html')
 
     

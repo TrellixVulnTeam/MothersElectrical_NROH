@@ -949,20 +949,20 @@ def checkout(request):
 
             # write a code to send a OTP msg to customer moblies
             oneTimePassword=get_random_alphanumeric_string(5, 3)
-            payload = "sender_id=MEOTP&language=english&route=qt&numbers="+userMoblieNumber+"&message=36259&variables={#BB#}&variables_values="+oneTimePassword+""
-            print(payload)
-            headers = {
-                        'authorization': "ZnmqBLXuWcHiG8jSCJ95do2bQ06p4R3k7tAFIaNMgvsP1wVhfDHER3mgUcbWXyzjMr6weJ250qOdZuf4", #---- api authorization key
-                        'cache-control': "no-cache",
-                        'content-type': "application/x-www-form-urlencoded"
-                         }
-            response = requests.request("POST", url, data=payload, headers=headers)
-            responseJson=json.loads(response.text)
+            # payload = "sender_id=MEOTP&language=english&route=qt&numbers="+userMoblieNumber+"&message=36259&variables={#BB#}&variables_values="+oneTimePassword+""
+            # print(payload)
+            # headers = {
+            #             'authorization': "ZnmqBLXuWcHiG8jSCJ95do2bQ06p4R3k7tAFIaNMgvsP1wVhfDHER3mgUcbWXyzjMr6weJ250qOdZuf4", #---- api authorization key
+            #             'cache-control': "no-cache",
+            #             'content-type': "application/x-www-form-urlencoded"
+            #              }
+            # response = requests.request("POST", url, data=payload, headers=headers)
+            # responseJson=json.loads(response.text)
             msgTag="success"
             msg=f"OTP(One Time Password is successfully send on this {phone}"
-            if responseJson['message'][0]!='Message sent successfully':
-                msgTag='error'
-                msg=f"Something is wrong, Please retry after sometime"
+            # if responseJson['message'][0]!='Message sent successfully':
+            #     msgTag='error'
+            #     msg=f"Something is wrong, Please retry after sometime"
            
             return JsonResponse({"message":msg,'otp':oneTimePassword,"msgTag":msgTag})
 
@@ -1002,11 +1002,168 @@ def placedOrder(request):
         order.save()
 
         getBookedOdr=OrderDetail.objects.latest('order_id')
-        print(getBookedOdr.order_Items)
-        print('line 994',type(getBookedOdr.order_Items))
         booked_order_items=json.loads(getBookedOdr.order_Items)
         print('line 944',booked_order_items)
         print('line 995', type(booked_order_items))
+        orderTable=''
+        serialNo=0
+        for key,value in booked_order_items.items():
+            serialNo=serialNo+1
+            price=value['price']
+            orderTable=orderTable+f"""<tr>
+                    <th scope='row'>{serialNo}</th>
+                    <td>{value['name']}</td>
+                    <td>{value['price']}</td>
+                    <td{value['qty']}</td>
+                    <td><span id='prefix' class='font-weight-bold'>&#x20b9;
+                    </span>{value['qty']*price}</td>
+                  </tr>"""
+        if getBookedOdr.order_id!=None:
+            msg = EmailMessage()
+            msg['Subject'] = f"Successfully orderm booked from MothersElectrical"
+            msg['From'] = EMAIL_ADDRESS
+            msg['To'] = getBookedOdr.c_Email
+            msg.set_content(f"Order Successfully Booked")
+            msg.add_alternative("""<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+
+    <title>Hello, world!</title>
+</head>
+<style>
+    .banner_FirstWord {{
+        color: #d20909fa;
+        font-size: 20px;
+        font-weight: 700;
+    }}
+
+    .banner_SecondWord {{
+        color: black;
+        font-size: 20px;
+        font-weight: 700;
+    }}
+
+    .company_Logo {{
+        height: 120px;
+        width: 170px;
+    }}
+</style>
+
+<body>
+    <div class="container">
+        <div class="row bg-light mt-2 py-2">
+            <div class="col">
+                <span class="banner_FirstWord">Mothers</span><span class="banner_SecondWord">Electrical</span>
+            </div>
+        </div>
+       
+    <div class="row mt-3">
+        <div class="col-md-10 col-xs-12 offset-md-1">
+            <h4>#Your Orders</h4>
+        
+            <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th scope="col">S.no#</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Rate/Qty</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orderTable}
+                </tbody>
+              </table>
+        </div>
+    </div>
+    <hr/>
+        <div class="row">
+            <div class="offset-lg-1 offset-md-1 offset-sm-1 offset-xs-1  col-lg-5 col-md-5 col-sm-10 col-xs-10">
+                <h4 class="bg-light">#Recipient</h4>
+                <p>{Name} <br/>
+                    {Address} <br/>
+                   {Address2} <br/>
+                    {Zip},{State}
+                    +91-{Moblie} <br/>
+                    +91-{AltMoblie} <br/>
+                    
+
+                </p>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-10 col-xs-10">
+                <h4 class="bg-light">#Total Amount</h4>
+               <div class="row">
+                   <div class="col">Due Amount </div>
+                   <div class="col"><span id="prefix" class="font-weight-bold">&#x20b9;
+                </span>{TotalAmount}.00</div>
+               </div>
+               <div class="row">
+                <div class="col">Date </div>
+                <div class="col"><span id="prefix" class="font-weight-bold">&#x20b9;
+             </span>{Date}</div>
+               </div>
+            </div>
+        </div>
+        -<div class="row my-3 ">
+            <div class="col text-center ">
+                <h3>Thank you for your order</h3>
+                I hope your shoping experienceis good with us. If you have any suggestion or feedback please reply us.
+            </div>
+        </div>
+        <hr/>
+        <div class="row bg-light my-4 pb-5">
+            <div class="col text-center">
+                <span class="banner_FirstWord">Mothers</span><span class="banner_SecondWord">Electrical</span>
+                <p class="my-0"><em> electricalmothers@gmail.com</em></p>
+                <p class="my-0"> Shop No. :- 7, New Market,
+                    Hathua Road Mirganj (841438)
+                    Phone: +91 8193945463
+                    Business Number: +91 8193945463 </p>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>""".format(Name=getBookedOdr.c_Name,
+Moblie=getBookedOdr.c_Moblie,
+            AltMoblie=getBookedOdr.c_AltMoblie,
+            Address=getBookedOdr.c_Address,
+            Address2=getBookedOdr.c_Address,
+            Email=getBookedOdr.c_Email,
+            State=getBookedOdr.c_State,
+            City=getBookedOdr.c_City,  
+            Zip=getBookedOdr.c_Zip,
+            Date=getBookedOdr.Date,
+            orderTable=orderTable,          
+            TotalAmount=order_TotalPrice), 
+
+subtype='html')
+            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+                smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+                smtp.send_message(msg)
+
         DetailForInvoice={
             'c_Name':getBookedOdr.c_Name,
             'c_Moblie':getBookedOdr.c_Moblie,

@@ -157,7 +157,7 @@
                     document.getElementById('OTPVerifyDiv').innerHTML = ``
                     for (const product in productList) {
                         subTotalOfOrder = subTotalOfOrder + (parseFloat(productList[product][1]) * parseInt(cart[product]))
-                        bookedOrder[product] = { name: productList[product][0], price: productList[product][1], qty: cart[product] }
+                        bookedOrder[product] = { name: productList[product][0], price: parseFloat(productList[product][1]), qty: cart[product] }
                         orderDetail = orderDetail + `<div id="card${product}" class="card">
             <div class="card-body p-y-1 p-x-1"style="
             box-shadow: 0px 1px 5px 0px grey;
@@ -199,7 +199,7 @@
                     document.getElementById('orderFormDiv').innerHTML = `<form id='placedOrderForm' class="placedOrderForm" action='/PlacedOrder/' method="POST">{% csrf_token %}
             <h4>Step 3: Fill your details and Placed order here</h4>
             <div class="form-row">
-                <input type="hidden" id="bookedOrder" name="bookedOrder" value=${bookedOrder}>
+                <input type="hidden" id=" " name="bookedOrder" value=${bookedOrder}>
                 <input type="hidden" id="orderTotalPrice" name="orderTotalPrice" value=${subTotalOfOrder}>
                 <div class="form-group col-md-6">
                     <label for="clientName">Name</label>

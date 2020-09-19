@@ -1,0 +1,171 @@
+{% extends 'layout.html' %}
+{% block title %}Checkout-MothersElectrical
+{% endblock title %}
+
+
+{% block content %}
+{% load static %}
+
+<section class="mbr-section mbr-parallax-background " id="form1-2h"
+    style="background-image: url(assets/images/d5salkdogb4-stefan-widua.jpg); padding-top: 54px; padding-bottom: 12px ; margin-top:40px">
+    <div class="container m-x-4 m-y-2 " id='sendOTPdiv'> {% csrf_token %}
+        <hr />
+        <div class="container m-y-1 m-x-auto ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 bg-faded text-black  text-xs-center ">
+                        <header>
+                            <h2>Your Order is Booked</h2>
+                            <hr />
+                        </header>
+                    </div>
+                </div>
+                <!----------main content---->
+                <div class="row m-t-2">
+                    <div class="  col-md-offset-1 col-md-5  font-italic font-weight-bold">
+                        <address>
+                            <p> electricalmothers@gmail.com </p>
+                            <p> Shop No. :- 7, New Market,
+                                Hathua Road Mirganj (841438) </p>
+                            <p> Phone: +91 8193945463 </p>
+                            <p> Business Number: +91 8193945463 </p>
+                        </address>
+                    </div>
+                    <div class="col-md-5  text-right ">
+                        <span><img class="m-r-3" src="{% static 'img/logo.png' %}" style="max-width: 150px;"
+                                alt="company Logo"></span>
+                    </div>
+                </div>
+                <hr />
+                <div class="row ">
+                    <div class="col-md-offset-1 col-md-5 ">
+                        <article>
+                            <h2 class="text-black-50">Recipient</h1>
+                                <address class="norm">
+                                    <h4>{{TempInvoice.c_Name|upper}}</h4>
+                                    <p> {{TempInvoice.c_Email}} <br>
+                                    <p> {{TempInvoice.c_Address|capfirst}} <br>
+                                    <p> {{TempInvoice.c_Address2|capfirst}} <br>
+                                    <p> Contact No.: +91-{{TempInvoice.c_Moblie}}</p>
+                                    <p> Altername Contact NO.: +91-{{TempInvoice.c_AltMoblie}}</p>
+                                </address>
+                        </article>
+                    </div>
+                    <div class="col-md-5 m-t-5">
+                        <div>
+                            <table class="table table-striped">
+                               
+                                <tr>
+                                    <th><span>Date</span></th>
+                                    <td><span>{{TempInvoice.Date}}</span></td>
+                                </tr>
+                                <tr>
+                                    <th><span>Amount Due</span></th>
+                                    <td><span id="prefix" class="font-weight-bold">&#x20b9;
+                                        </span><span>{{TempInvoice.order_Total}}</span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row m-t-4">
+                
+              
+                    <div class=" col-md-offset-1 col-md-10">
+                        <table class="table table-sm table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span>S. No</span></th>
+                                    <th><span>Name</span></th>
+                                    <th><span>Rate Per Qty</span></th>
+                                    <th><span>Qty</span></th>
+                                    <th><span>Amount</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for key, value in order_items.items %}
+                                <tr>
+                                    <td><span>1.</span></td>
+                                    <td><span>{{value.name}}</span></td>
+                                    <td><span>{{value.price}}</span></td>
+                                    <td><span id="prefix" class="font-weight-bold">&#x20b9;
+                                        </span><span>{{value.qty}}</span></td>
+                                        <td><span id="prefix" class="font-weight-bold">&#x20b9;
+                                        </span><span>{% widthratio value.price 1 value.qty %}</span></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row m-t-4">
+                    <div class=" col-md-offset-1 col-md-10">
+                        <table class="table  table-striped">
+                            <tr>
+                                <th><span>Total</span></th>
+                                <td><span id="prefix" class="font-weight-bold">&#x20b9;
+                                    </span><span>{{totalprice}}</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row m-t-4  ">
+                    <div class=" col-md-offset-1 col-md-10 text-xs-right">
+                        <table class="table ">
+                            <tr>
+                                <td><img src="{% static 'img/logo2.png' %}" style="max-width: 150px;"
+                                        alt="company signature"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row mt-4  ">
+                    <div class=" col-md-offset-1 col-md-10 text-xs-center " style="margin-bottom: 180px;">
+
+                        <h6>---THANKS YOU 4 SHOPPING WITH US---</h6>
+                        <h6>---HAVE NICE DAY---</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+{% endblock content %}
+{% block pagescript %}
+<script>
+    window.onbeforeunload = function () {
+        return "Your order is Successfully booked in our system.Are you want to book same order..?!";
+    }
+    var ctrlKeyDown = false;
+
+    $(document).ready(function () {
+        $(document).on("keydown", keydown);
+        $(document).on("keyup", keyup);
+    });
+
+    function keydown(e) {
+
+        if ((e.which || e.keyCode) == 116 || ((e.which || e.keyCode) == 82 && ctrlKeyDown)) {
+            // Pressing F5 or Ctrl+R
+            e.preventDefault();
+        } else if ((e.which || e.keyCode) == 17) {
+            // Pressing  only Ctrl
+            ctrlKeyDown = true;
+        }
+    };
+
+    function keyup(e) {
+        // Key up Ctrl
+        if ((e.which || e.keyCode) == 17)
+            ctrlKeyDown = false;
+    };
+
+    localStorage.clear()
+     cart = JSON.parse(localStorage.getItem('cart'))
+        updateCart(cart)
+
+
+</script>
+{% endblock pagescript %}

@@ -12,7 +12,7 @@
     <meta name="description" content="">
 
     <!--Adding designing files-->
-    
+
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic&amp;subset=latin">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
@@ -34,8 +34,8 @@
 </head>
 
 <body>
-    
-<!-- navbar -->
+
+    <!-- navbar -->
     <section id="menu-1">
         <nav class="navbar navbar-dropdown navbar-fixed-top">
             <div class="container">
@@ -69,28 +69,41 @@
                             <li class="nav-item dropdown {% block activeProduct %} {% endblock activeProduct %}">
                                 <a class="nav-link link dropdown-toggle" href="/Products" style="font-size: 15px;"
                                     data-toggle="dropdown-submenu" aria-expanded="false">PRODUCTS</a>
-                                    <span></span>
+                                <span></span>
                                 <div class="dropdown-menu ">
                                     {% comment %} <a class="dropdown-item" href="#">All Products</a> {% endcomment %}
-                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/Wires">Wires</a>
-                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/Lighting">Lighting</a>
-                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/Sockets">Sockets</a>
-                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/ModernKitchen">Modern Kitchen</a>
-                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/SwitchGear">SwitchGear</a>
-                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item" href="/Products/Fans">Fans</a>
-                                    {% comment %} <a class="dropdown-item" href="photo-portfolio/index.html">Photo Portfolio 
+                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item"
+                                        href="/Products/Wires">Wires</a>
+                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item"
+                                        href="/Products/Lighting">Lighting</a>
+                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item"
+                                        href="/Products/Sockets">Sockets</a>
+                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item"
+                                        href="/Products/ModernKitchen">Modern Kitchen</a>
+                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item"
+                                        href="/Products/SwitchGear">SwitchGear</a>
+                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item"
+                                        href="/Products/Fans">Fans</a>
+                                    {% comment %} <a class="dropdown-item" href="photo-portfolio/index.html">Photo
+                                        Portfolio
                                         Template</a>{% endcomment %}
                                 </div>
                             </li>
                             <li class="nav-item nav-btn {% block activeRetailer %} {% endblock activeRetailer %}">
-                                <a class="nav-link" style="font-size: 15px;"
-                                    href="/Retrailers">OUR RETAILER</a>
+                                <a class="nav-link" style="font-size: 15px;" href="/Retrailers">OUR RETAILER</a>
                             </li>
                             <li class="nav-item dropdown {% block activeContactus %} {% endblock activeContactus %}">
                                 <a class="nav-link link " href="/ContactUs" style="font-size: 15px;"
-                                     aria-expanded="false">CONTACT US</a>
+                                    aria-expanded="false">CONTACT US</a>
                             </li>
-                            
+                            <li class="nav-item dropdown {% block activeCart %} {% endblock activeCart %}">
+                                <p id='cartLink' class="nav-link link cartLink " href="/ContactUs"
+                                    style="font-size: 15px;" aria-expanded="false"><img id="cartLogo"
+                                        src="{% static 'img/basket2.png'%}" width="35px" alt="Cart"><span
+                                        id="cartCount">0</span> </p>
+                            </li>
+
+
                             <!-- <li class="nav-item dropdown">
                                 <a class="nav-link link dropdown-toggle" href="https://mobirisethemes.com/"
                                     aria-expanded="false" data-toggle="dropdown-submenu"><span
@@ -112,25 +125,24 @@
                                     <a class="dropdown-item" href="blocks.html#msg-box8-2f">FOOTERS</a>
                                 </div>
                             </li> -->
-                            
+
                         </ul>
-                        <button style="color:black" hidden="" class="navbar-toggler navbar-close" type="button" data-toggle="collapse"
-                            data-target="#exCollapsingNavbar">
+                        <button style="color:black" hidden="" class="navbar-toggler navbar-close" type="button"
+                            data-toggle="collapse" data-target="#exCollapsingNavbar">
                             <div class="close-icon"></div>
                         </button>
 
                     </div>
                 </div>
-
             </div>
         </nav>
-
     </section>
+    <div id="previewOrderList"></div>
 
 
-{%  block content%} {% endblock content %} 
+    {%  block content%} {% endblock content %}
 
-<!-- -------Footer---------- -->
+    <!-- -------Footer---------- -->
     <section class="mbr-section mbr-section-md-padding mbr-footer footer1" id="contacts1-2m"
         style="background-color: rgb(239, 239, 239); padding-top: 90px; padding-bottom: 90px;">
 
@@ -146,15 +158,18 @@
                 </div>
                 <div class="mbr-footer-content col-xs-12 col-md-3">
                     <p><strong>Contacts</strong><br>
-                        Email: support@mothersElectrical.com<br>
+                        Email: electricalmothers@gmail.com<br>
                         Moblie: +91 8193945463<br></p>
-                        {% comment %} Fax: +1 (0) 000 0000 002 {% endcomment %}
+                    {% comment %} Fax: +1 (0) 000 0000 002 {% endcomment %}
                 </div>
                 <div class="mbr-footer-content col-xs-12 col-md-3">
                     <p><strong>Social Links</strong><br>
-                        <a class="text-black" href="https://www.facebook.com/MothersElectrical"><img  width=50px src="{%static 'img/fb.png'%}" alt="facebook icon"></a>
-                        <a class="text-black" href="https://instagram.com"><img width=50px src="{%static 'img/insta.png'%}" alt="instagram icon"></a>
-                        <a class="text-black" href="https://whatsapp.com"><img width=50px src="{%static 'img/whatsapp.png'%}" alt="
+                        <a class="text-black" href="https://www.facebook.com/MothersElectrical"><img width=50px
+                                src="{%static 'img/fb.png'%}" alt="facebook icon"></a>
+                        <a class="text-black" href="https://instagram.com"><img width=50px
+                                src="{%static 'img/insta.png'%}" alt="instagram icon"></a>
+                        <a class="text-black" href="https://whatsapp.com"><img width=50px
+                                src="{%static 'img/whatsapp.png'%}" alt="
                         whatsapp icon"></a></p>
                 </div>
             </div>
@@ -172,7 +187,7 @@
     </footer>
 
 
-    <script src="{% static '/web/assets/jquery/jquery.min.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-1.11.0.js" integrity="sha256-zgND4db0iXaO7v4CLBIYHGoIIudWI5hRMQrPB20j0Qw=" crossorigin="anonymous"></script>
     <script src="{% static '/tether/tether.min.js' %}"></script>
     <script src="{% static '/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static '/smooth-scroll/smooth-scroll.js' %}"></script>
@@ -182,6 +197,74 @@
     <script src="{% static '/jarallax/jarallax.js' %}"></script>
     <script src="{% static '/theme/js/script.js' %}"></script>
     <input name="animation" type="hidden">
+    <script>
+        // Update the cart items
+        function updateCart(cart) {
+            console.log(cart)
+            var itemsInCart = 0
+            let productsName=JSON.parse(localStorage.getItem('productsName'))
+            for (const item in cart) {
+                itemsInCart = itemsInCart + cart[item]
+                if (cart[item] === 0) {
+                    // document.getElementById('div'+item).innerHTML = "<button class='btn btn-md btn-danger-outline btn-danger cart' id='" + item + "'style='padding: 7px;font-weight: bolder;margin-top: 18px; font-style: italic;'>Add To Cart</button>"
+                    delete cart[item];
+                    delete productsName[item]
+                }
+                else {
+                    try {
+                        document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-md btn-danger-outline btn-danger minus' style='padding: 7px;font-weight: bolder;margin-top: 18px; font-style: italic; border-radius:0px; '>-</button><span class='btn btn-md  btn-danger' id='" + item + "'style='padding: 7px;font-weight: bolder;margin-top: 18px; margin-left:0px; border-radius:0px; font-style: italic; '>"
+                            + cart[item] + "</span><button id='plus" + item + "' class='btn btn-md btn-danger-outline btn-danger plus' style='padding: 7px;font-weight: bolder;margin-top: 18px; margin-left:0px; font-style: italic; border-radius:0px; '>+</button>"
+                    } catch (error) {
+
+                    }
+                }
+            }
+            console.log(cart)
+            localStorage.setItem('cart',JSON.stringify(cart))
+            localStorage.setItem('productsName',JSON.stringify(productsName))
+            document.getElementById('cartCount').innerHTML = itemsInCart
+        }
+
+        if (localStorage.getItem('cart') !== null) {
+            cart = JSON.parse(localStorage.getItem('cart'))
+            updateCart(cart)
+        }
+        else {
+            document.getElementById('cartCount').innerHTML = 0
+        }
+
+        // Show Cart Details in Nav bar
+        $('#cartLink').mouseenter(function () {
+            let productsNameList = JSON.parse(localStorage.getItem('productsName'))
+            let cart = JSON.parse(localStorage.getItem('cart'))
+            let itemsDetailsInCart = ""
+            console.log(productsNameList)
+            if (productsNameList === null) {
+                itemsDetailsInCart = "<div class='cartDetailsInNav'><p class='cartDetailsInNav_Heading' >Oops...! Your cart is empty</p></div>"
+            }
+            else {
+
+                itemsDetailsInCart = "<div id='cartDetailsInNav' class='cartDetailsInNav'><p class='cartDetailsInNav_Heading' > Items in your cart<a href='/Checkout' class='btn btn-md btn-danger-outline btn-danger ' style='padding: 7px;font-weight: bolder;float:right; margin-left:0px; font-style: italic; border-radius:0px; '>Checkout</a></p>"
+                let forLoopCounter = 0
+                for (const item in productsNameList) {
+                    console.log(productsNameList[item][0])
+                    forLoopCounter++;
+                    itemsDetailsInCart = itemsDetailsInCart + "<p class='cartDetailsInNav_Content'><strong>" + forLoopCounter + ". </strong>" + productsNameList[item][0].slice(0, 20) + " , QTY " + cart[item] + "</P>"
+
+                }
+                itemsDetailsInCart = itemsDetailsInCart + "</div>"
+            }
+            document.getElementById('previewOrderList').innerHTML = itemsDetailsInCart
+
+        })
+
+        // Hide Cart Details in Nav bar
+        $('#cartLink').mousedown(function () {
+            console.log('runnign')
+            document.getElementById('previewOrderList').innerHTML = ""
+        })
+
+    </script>
     {% block pagescript %}
     {% endblock pagescript %}
 </body>

@@ -12,5 +12,7 @@ urlpatterns = [
     path ('Retrailers/',views.retailers,name="wretrailers"),
     path ('AllProducts/<str:type>/',views.AllProduct,name="wAllProduct"),
     path ('Logout/',views.handleLogout,name="wlogout"),
-    path('ProductDetail/<int:id>/',views.productDetail,name="wProductDetail")
+    path('ProductDetail/<int:id>/',views.productDetail,name="wProductDetail"),
+    path('Checkout/',views.checkout,name="wCheckout"),
+    path('PlacedOrder/',views.placedOrder,name='wPlacedOrder')
 ]

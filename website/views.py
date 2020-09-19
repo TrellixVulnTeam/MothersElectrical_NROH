@@ -1,8 +1,15 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
-from .models import Product_detail,News,Retrailer_Detail
+from .models import Product_detail,News,Retrailer_Detail,OrderDetail,clientMoblie
 from django.contrib import messages
+from datetime import datetime
+import random
+import string
+import requests
+
+
+import json 
 # ----for sending email---
 import os
 import smtplib
@@ -14,6 +21,19 @@ from django.contrib.auth import authenticate, logout, login # ---for user login 
 BLOG_POSTS_PER_PAGE = 2
 EMAIL_ADDRESS = "rahultest445@gmail.com"
 EMAIL_PASSWORD = "Test#123"
+oneTimePassword='xxx'
+url = "https://www.fast2sms.com/dev/bulk" #---fast2sms url
+
+# -----------Generate alphaNumeric string
+def get_random_alphanumeric_string(letters_count, digits_count):
+    sample_str = ''.join((random.choice(string.ascii_letters) for i in range(letters_count)))
+    sample_str += ''.join((random.choice(string.digits) for i in range(digits_count)))
+
+    # Convert string to list and shuffle it to mix letters and digits
+    sample_list = list(sample_str)
+    random.shuffle(sample_list)
+    final_string = ''.join(sample_list)
+    return final_string
 # Create your views here.
 # ---------------------------------
 def index(request):
@@ -39,7 +59,7 @@ def contactus(request):
             # ---Sendding Email-----
             msg = EmailMessage()
             msg['Subject'] = f"Contact Request from {name}"
-            msg['From'] = EMAIL_ADDRESS
+            msg['From'] = f'MothersElectrical<{EMAIL_ADDRESS}>'
             msg['To'] = 'rahultest445@gmail.com'
             msg.set_content(f"\n{message}\n\n From {email}\nMoblie number{phone}")
             msg.add_alternative("""
@@ -740,7 +760,7 @@ a.es-button {{
                                                                         <table width="100%" cellspacing="0" cellpadding="0">
                                                                             <tbody>
                                                                                 <tr>
-                                                                                    <td class="esd-block-image es-p20r es-p20l" align="center" style="font-size:0"><a target="_blank"><img class="adapt-img" src="http://127.0.0.1:8000/static/img/logo.png" alt="Image" style="display: block;" title="Image" width="180"></a></td>
+                                                                                    <td class="esd-block-image es-p20r es-p20l" align="center" style="font-size:0"><a target="_blank"><img class="adapt-img" src="cid:Logo.jpg" alt="Image" style="display: block;" title="Image" width="180"></a></td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -855,7 +875,6 @@ a.es-button {{
     <div style="position: absolute; left: -9999px; top: -9999px; margin: 0px;"></div>
 </body>
 </html>""".format(fname=name, fmessage=message,fphone=phone,femail=email), subtype='html')
-
             with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
                 smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
                 smtp.send_message(msg)
@@ -911,5 +930,255 @@ def handleLogout(request):
         return HttpResponse("Logout page")
 
 
+#------------------Checkout----------------
+def checkout(request):
+    isMoblieVerified=False
+    global oneTimePassword
+    if request.method=="POST" :
+        phone=request.POST.get('phone')
+        phoneOTP=request.POST.get('phoneOTP')
+        print(phone, phoneOTP)
+        if phoneOTP==None:
+            userMoblieNumber=phone
+            getClients=clientMoblie.objects.filter(clientMoblieNumber=phone)
+            
+            if len(getClients)==0:
+                print('number save in db')
+                saveMoblie=clientMoblie(clientMoblieNumber=userMoblieNumber)
+                saveMoblie.save()
+
+            # write a code to send a OTP msg to customer moblies
+            oneTimePassword=get_random_alphanumeric_string(5, 3)
+            payload = "sender_id=MEOTP&language=english&route=qt&numbers="+userMoblieNumber+"&message=36259&variables={#BB#}&variables_values="+oneTimePassword+""
+            print(payload)
+            headers = {
+                        'authorization': "ZnmqBLXuWcHiG8jSCJ95do2bQ06p4R3k7tAFIaNMgvsP1wVhfDHER3mgUcbWXyzjMr6weJ250qOdZuf4", #---- api authorization key
+                        'cache-control': "no-cache",
+                        'content-type': "application/x-www-form-urlencoded"
+                         }
+            response = requests.request("POST", url, data=payload, headers=headers)
+            responseJson=json.loads(response.text)
+            msgTag="success"
+            msg=f"OTP(One Time Password is successfully send on this {phone}"
+            if responseJson['message'][0]!='Message sent successfully':
+                msgTag='error'
+                msg=f"Something is wrong, Please retry after sometime"
+           
+            return JsonResponse({"message":msg,'otp':oneTimePassword,"msgTag":msgTag})
+
+        else:
+            print(oneTimePassword)
+            if phoneOTP==oneTimePassword:
+                 isMoblieVerified=True
+                 msgTag='success'
+                 msg=f"OTP(One Time Password is Successfully Verified {phone}"
+            else:
+                 msgTag='error'
+                 msg=f"You enter wrong OTP(One Time Password),Please enter carefully"
+           
+            return JsonResponse({"isMoblieVerified":isMoblieVerified,"message":msg,"msgTag":msgTag})
+
+
+    return render(request,'checkout.html',{"isMoblieVerified":isMoblieVerified})
+
+# ---------------------PlacedOrder-----------
+def placedOrder(request):
+    if request.method=="POST":
+        clientOrder=request.POST.get('bookedOrder')
+        order_TotalPrice=request.POST.get('orderTotalPrice')
+        clientName=request.POST.get('clientName')
+        clientMoblie=request.POST.get('clientMoblie')
+        clientAddress1=request.POST.get('clientAddress1')
+        clientAddress2=request.POST.get('clientAddress2')
+        clientState=request.POST.get('clientState')
+        clientCity=request.POST.get('clientCity')
+        clientZip=request.POST.get('clientZip')
+        clientEmail=request.POST.get('clientEmail')
+        clientAltMoblie=request.POST.get('clientAltMoblie')
+        orderDate=datetime.now()
+
+        order=OrderDetail(order_Items=clientOrder,order_Total=order_TotalPrice,c_Name=clientName,c_Moblie=clientMoblie,c_AltMoblie=clientAltMoblie,c_Address=clientAddress1,c_Address2=clientAddress2,
+        c_Email=clientEmail,c_State=clientState,c_City=clientCity,c_Zip=clientZip,Date=orderDate)
+        order.save()
+
+        getBookedOdr=OrderDetail.objects.latest('order_id')
+        booked_order_items=json.loads(getBookedOdr.order_Items)
+        print('line 944',booked_order_items)
+        print('line 995', type(booked_order_items))
+        orderTable=''
+        serialNo=0
+        for key,value in booked_order_items.items():
+            serialNo=serialNo+1
+            price=value['price']
+            orderTable=orderTable+f"""<tr>
+                    <th scope='row'>{serialNo}</th>
+                    <td>{value['name']}</td>
+                    <td>{value['price']}</td>
+                    <td>{value['qty']}</td>
+                    <td><span id='prefix' class='font-weight-bold'>&#x20b9;
+                    </span>{value['qty']*price}</td>
+                  </tr>"""
+        if getBookedOdr.order_id!=None:
+            msg = EmailMessage()
+            msg['Subject'] = f"Successfully order booked from MothersElectrical"
+            msg['From'] = f'MothersElectrical<{EMAIL_ADDRESS}>'
+            msg['To'] = getBookedOdr.c_Email
+            msg.set_content(f"Order Successfully Booked")
+            msg.add_alternative("""<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+
+    <title>Hello, world!</title>
+
+<style type="text/css">
+    .banner_FirstWord {{
+        color: #d20909fa;
+        font-size: 20px;
+        font-weight: 700;
+    }}
+
+    .banner_SecondWord {{
+        color: black;
+        font-size: 20px;
+        font-weight: 700;
+    }}
+
+    .company_Logo {{
+        height: 120px;
+        width: 170px;
+    }}
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="row bg-light mt-2 py-2">
+            <div class="col">
+                <span class="banner_FirstWord">Mothers</span><span class="banner_SecondWord">Electrical</span>
+            </div>
+        </div>
+       
+    <div class="row mt-3">
+        <div class="col-md-10 col-xs-12 offset-md-1">
+            <h4>#Your Orders</h4>
+        
+            <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th scope="col">S.no#</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Rate/Qty</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orderTable}
+                </tbody>
+              </table>
+        </div>
+    </div>
+    <hr/>
+        <div class="row">
+            <div class="offset-lg-1 offset-md-1 offset-sm-1 offset-xs-1  col-lg-5 col-md-5 col-sm-10 col-xs-10">
+                <h4 class="bg-light">#Recipient</h4>
+                <p>{Name} <br/>
+                    {Address} <br/>
+                   {Address2} <br/>
+                    {Zip},{State}
+                    +91-{Moblie} <br/>
+                    +91-{AltMoblie} <br/>
+                    
+
+                </p>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-10 col-xs-10">
+                <h4 class="bg-light">#Total Amount</h4>
+               <div class="row">
+                   <div class="col">Due Amount </div>
+                   <div class="col"><span id="prefix" class="font-weight-bold">&#x20b9;
+                </span>{TotalAmount}.00</div>
+               </div>
+               <div class="row">
+                <div class="col">Date </div>
+                <div class="col"><span id="prefix" class="font-weight-bold">&#x20b9;
+             </span>{Date}</div>
+               </div>
+            </div>
+        </div>
+        -<div class="row my-3 ">
+            <div class="col text-center ">
+                <h3>Thank you for your order</h3>
+                I hope your shoping experienceis good with us. If you have any suggestion or feedback please reply us.
+            </div>
+        </div>
+        <hr/>
+        <div class="row bg-light my-4 pb-5">
+            <div class="col text-center">
+                <span class="banner_FirstWord">Mothers</span><span class="banner_SecondWord">Electrical</span>
+                <p class="my-0"><em> electricalmothers@gmail.com</em></p>
+                <p class="my-0"> Shop No. :- 7, New Market,
+                    Hathua Road Mirganj (841438)
+                    Phone: +91 8193945463
+                    Business Number: +91 8193945463 </p>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>""".format(Name=getBookedOdr.c_Name,
+Moblie=getBookedOdr.c_Moblie,
+            AltMoblie=getBookedOdr.c_AltMoblie,
+            Address=getBookedOdr.c_Address,
+            Address2=getBookedOdr.c_Address,
+            Email=getBookedOdr.c_Email,
+            State=getBookedOdr.c_State,
+            City=getBookedOdr.c_City,  
+            Zip=getBookedOdr.c_Zip,
+            Date=getBookedOdr.Date,
+            orderTable=orderTable,          
+            TotalAmount=order_TotalPrice), 
+
+subtype='html')
+            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+                smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+                smtp.send_message(msg)
+
+        DetailForInvoice={
+            'c_Name':getBookedOdr.c_Name,
+            'c_Moblie':getBookedOdr.c_Moblie,
+            'c_AltMoblie':getBookedOdr.c_AltMoblie,
+            'c_Address':getBookedOdr.c_Address,
+            'c_Address2':getBookedOdr.c_Address,
+            'c_Email':getBookedOdr.c_Email,
+            'c_State':getBookedOdr.c_State,
+            'c_City':getBookedOdr.c_City,  
+            'c_Zip':getBookedOdr.c_Zip,
+            'Date':getBookedOdr.Date,
+            'order_Total':getBookedOdr.order_Total   
+             }
+        return render(request,'placedOrder.html',{'TempInvoice':DetailForInvoice,'order_items':booked_order_items,'totalprice':order_TotalPrice})
+
+    return render(request,'checkout.html')
 
     

@@ -92,7 +92,7 @@
                                     <td><span id="prefix" class="font-weight-bold">&#x20b9;
                                         </span><span>{{value.qty}}</span></td>
                                         <td><span id="prefix" class="font-weight-bold">&#x20b9;
-                                        </span><span>{{value.price }}</span></td>
+                                        </span><span>{% widthratio value.price 1 value.qty %}</span></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -161,6 +161,10 @@
         if ((e.which || e.keyCode) == 17)
             ctrlKeyDown = false;
     };
+
+    localStorage.clear()
+     cart = JSON.parse(localStorage.getItem('cart'))
+        updateCart(cart)
 
 
 </script>

@@ -57,7 +57,7 @@ def contactus(request):
             # ---Sendding Email-----
             msg = EmailMessage()
             msg['Subject'] = f"Contact Request from {name}"
-            msg['From'] = EMAIL_ADDRESS
+            msg['From'] = f'MothersElectrical<{EMAIL_ADDRESS}>'
             msg['To'] = 'rahultest445@gmail.com'
             msg.set_content(f"\n{message}\n\n From {email}\nMoblie number{phone}")
             msg.add_alternative("""
@@ -956,7 +956,11 @@ def checkout(request):
             # write a code to send a OTP msg to customer moblies
             oneTimePassword=get_random_alphanumeric_string(5, 3)
             payload = "sender_id=MEOTP&language=english&route=qt&numbers="+userMoblieNumber+"&message=36259&variables={#BB#}&variables_values="+oneTimePassword+""
+<<<<<<< HEAD
 
+=======
+            print(payload)
+>>>>>>> b855f0d66e39c2ecbb6f57b25819850fdf0fe419
             headers = {
                         'authorization': "ZnmqBLXuWcHiG8jSCJ95do2bQ06p4R3k7tAFIaNMgvsP1wVhfDHER3mgUcbWXyzjMr6weJ250qOdZuf4", #---- api authorization key
                         'cache-control': "no-cache",
@@ -1017,14 +1021,14 @@ def placedOrder(request):
                     <th scope='row'>{serialNo}</th>
                     <td>{value['name']}</td>
                     <td>{value['price']}</td>
-                    <td{value['qty']}</td>
+                    <td>{value['qty']}</td>
                     <td><span id='prefix' class='font-weight-bold'>&#x20b9;
                     </span>{value['qty']*price}</td>
                   </tr>"""
         if getBookedOdr.order_id!=None:
             msg = EmailMessage()
-            msg['Subject'] = f"Successfully orderm booked from MothersElectrical"
-            msg['From'] = EMAIL_ADDRESS
+            msg['Subject'] = f"Successfully order booked from MothersElectrical"
+            msg['From'] = f'MothersElectrical<{EMAIL_ADDRESS}>'
             msg['To'] = getBookedOdr.c_Email
             msg.set_content(f"Order Successfully Booked")
             msg.add_alternative("""<!DOCTYPE html>
@@ -1040,8 +1044,8 @@ def placedOrder(request):
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
 
     <title>Hello, world!</title>
-</head>
-<style>
+
+<style type="text/css">
     .banner_FirstWord {{
         color: #d20909fa;
         font-size: 20px;
@@ -1059,7 +1063,7 @@ def placedOrder(request):
         width: 170px;
     }}
 </style>
-
+</head>
 <body>
     <div class="container">
         <div class="row bg-light mt-2 py-2">

@@ -956,11 +956,6 @@ def checkout(request):
             # write a code to send a OTP msg to customer moblies
             oneTimePassword=get_random_alphanumeric_string(5, 3)
             payload = "sender_id=MEOTP&language=english&route=qt&numbers="+userMoblieNumber+"&message=36259&variables={#BB#}&variables_values="+oneTimePassword+""
-<<<<<<< HEAD
-
-=======
-            print(payload)
->>>>>>> b855f0d66e39c2ecbb6f57b25819850fdf0fe419
             headers = {
                         'authorization': "ZnmqBLXuWcHiG8jSCJ95do2bQ06p4R3k7tAFIaNMgvsP1wVhfDHER3mgUcbWXyzjMr6weJ250qOdZuf4", #---- api authorization key
                         'cache-control': "no-cache",

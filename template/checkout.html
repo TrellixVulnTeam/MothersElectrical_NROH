@@ -1,0 +1,295 @@
+{% extends 'layout.html' %}
+{% block title %}Checkout-MothersElectrical
+{% endblock title %}
+
+
+{% block content %}
+{% load static %}
+
+<section class="mbr-section mbr-parallax-background " id="form1-2h"
+    style="background-image: url(assets/images/d5salkdogb4-stefan-widua.jpg); padding-top: 54px; padding-bottom: 12px ; margin-top:40px">
+
+<!-- Notification Modal -->
+<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="my-modal-header" id='modalContent'>
+            
+        </div>
+        <div class="my-modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding: 5px;
+          font-weight: bolder;
+          margin-left: 0px;
+          font-style: italic;
+          border-radius: 0px;">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="checkout_PreMsg" role="alert">
+        <p><strong><em>There is some important thing must you before you placed your order :-</em></strong></p>
+        <p>1. We deliverd our product only in 10 km radius from new market, mirganj
+            </br>2. We will charged a delivery fee, if order value below 2000.
+            </br>3. You need to pay 30% advanced, if order value above 30,000.
+    </div>
+    <div class="container m-x-4 m-y-2 " id='sendOTPdiv'> {% csrf_token %}
+        <form id='sendOTPForm' class="sendOTPForm">
+            <h4>Step 1: Verified your moblie number</h4>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Moblie Number</label>
+                <input type="phone" class="form-control form-control-sm" id="inputPhone" name="inputPhone" style="min-height: 0px;
+               padding:5px;" aria-describedby="emailHelp" placeholder="Enter Moblie Number" required>
+                <small id="emailHelp" class="form-text text-muted">We'll never share your moblie with anyone
+                    else.</small>
+            </div>
+            <button id="SendOTP" type="submit" class="btn btn-success-outline" style="padding: 5px;
+            font-weight: bolder;
+            margin-left: 0px;
+            font-style: italic;
+            border-radius: 0px;">Send OTP</button>
+        </form>
+    </div>
+
+    <div class="container m-x-4 OTPVerifyDiv" id="OTPVerifyDiv">
+
+    </div>
+
+
+    <div class="container m-y-2">
+        <div id="orderDetailDivHeading">
+
+        </div>
+
+        <div id="orderDetailDiv">
+
+        </div>
+
+        <div id="orderFormDiv" class="m-y-2"></div>
+    </div>
+    </div>
+
+
+
+
+</section>
+{% endblock content %}
+{% block pagescript %}
+<script>
+
+    // Moblie number verification for placing order
+    $('#sendOTPForm').submit(function (event) {
+        event.preventDefault();
+        var formData = {
+            'phone': $('input[name=inputPhone').val(),
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/Checkout/',
+            data: formData,
+            encode: true
+        })
+            .done(function (data) {
+                if(data.message!==''){
+                    if(data.msgTag=="success"){
+                        document.getElementById('modalContent').innerHTML=` <img src="{% static '/img/success.png' %}" alt="success" width="30px">   ${data.message}`
+                    }
+                    else{
+                        document.getElementById('modalContent').innerHTML=` <img src="{% static '/img/error.png' %}" alt="success" width="30px">   ${data.message}`
+                    }
+                    $('#alertModal').modal('show')
+                }
+            })
+        let userNumber = document.getElementById('inputPhone').value
+        document.getElementById('OTPVerifyDiv').innerHTML = ` <form id='verifyOTPForm' class="sendOTPForm"> 
+            <div class="form-group">
+                <input type=hidden name=phoneNumber value=${userNumber} required>
+                <label for="exampleInputEmail1">OTP</label>
+                <input id="inputOTP" name="inputOTP" type="text" class="form-control form-control-sm inputOTP"  style="min-height: 0px;
+                 padding:5px;" aria-describedby="emailHelp" placeholder="Enter OTP(One Time Password)" required>
+            </div>
+            <button id="verifyOTP" name="verifyOTP" type="submit" class="btn btn-success-outline verifyOTP" style="padding: 5px;
+            font-weight: bolder;
+            margin-left: 0px;
+            font-style: italic;
+            border-radius: 0px;">Verify OTP</button>
+        </form>`
+        document.getElementById('SendOTP').innerHTML = `Resend OTP`
+    })
+
+    // Views Orders Details and Order Placed
+    $('.OTPVerifyDiv').on('submit', '#verifyOTPForm', function (event) {
+        event.preventDefault();
+        var formData = {
+            'phone': $('input[name=phoneNumber').val(),
+            'phoneOTP': $('input[name=inputOTP').val(),
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/Checkout/',
+            data: formData,
+            encode: true
+        })
+            .done(function (data) {
+                if(data.msgTag=="success"){
+                    document.getElementById('modalContent').innerHTML=` <img src="{% static '/img/success.png' %}" alt="success" width="30px">   ${data.message}`
+                }
+                else{
+                    document.getElementById('modalContent').innerHTML=` <img src="{% static '/img/error.png' %}" alt="success" width="30px">   ${data.message}`
+                }
+                $('#alertModal').modal('show')
+
+                if (data.isMoblieVerified) {
+                    let cart = JSON.parse(localStorage.getItem('cart'))
+                    let productList = JSON.parse(localStorage.getItem('productsName'))
+                    let orderDetail = ''
+                    let ordersDetailsCard
+                    let subTotalOfOrder = 0;
+                    let bookedOrder = {}
+                    document.getElementById('sendOTPdiv').innerHTML = ``
+                    document.getElementById('OTPVerifyDiv').innerHTML = ``
+                    for (const product in productList) {
+                        subTotalOfOrder = subTotalOfOrder + (parseFloat(productList[product][1]) * parseInt(cart[product]))
+                        bookedOrder[product] = { name: productList[product][0], price: parseFloat(productList[product][1]), qty: cart[product] }
+                        orderDetail = orderDetail + `<div id="card${product}" class="card">
+            <div class="card-body p-y-1 p-x-1"style="
+            box-shadow: 0px 1px 5px 0px grey;
+        ">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="${productList[product][3]}" alt=" logo" width="100px">
+                    </div>
+                    <div class="col-md-4 m-y-1" style="line-height: 16px;
+                    font-size: 12px;">
+                        <h5 class="card-title">${productList[product][0]}</h5>
+                        <p class="card-text">${productList[product][2]}</p>
+                    </div>
+                    <div class="col-md-2 col-xs-2" >
+                        <p>${productList[product][1]} x</p>
+                    </div>
+                    <div class="col-md-2 col-xs-6">
+                        <div class="quantity">
+                            <input type="number" id="orderQty${product}" step="1" max="99" min="1" value="${cart[product]}" title="Qty" class=" qty" size="4">
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-xs-4">
+                        <button id="remove${product}" type="button" class="btn btn-danger-outline btn-xs removeOrder" style="padding: 5px;
+                        font-weight: bolder;
+                        margin-left: 0px;
+                        font-style: italic;
+                        border-radius: 0px;">
+                            Remove
+                        </button>
+                  </div>
+                </div>
+            </div>
+        </div>`
+                    }
+                    bookedOrder=JSON.stringify(bookedOrder)
+                    document.getElementById('orderDetailDivHeading').innerHTML = ` <h4 class="m-y-2">Step 2: Review Cart Orders</h4>
+                    <p>There are<strong><em> ${Object.keys(cart).length} item(s)</em></strong> in your cart and <strong><em>SubTotal is :${subTotalOfOrder}</em></strong> `
+                    document.getElementById('orderDetailDiv').innerHTML = orderDetail
+                    document.getElementById('orderFormDiv').innerHTML = `<form id='placedOrderForm' class="placedOrderForm" action='/PlacedOrder/' method="POST">{% csrf_token %}
+            <h4>Step 3: Fill your details and Placed order here</h4>
+            <div class="form-row">
+                <input type="hidden" id=" " name="bookedOrder" value=${bookedOrder}>
+                <input type="hidden" id="orderTotalPrice" name="orderTotalPrice" value=${subTotalOfOrder}>
+                <div class="form-group col-md-6">
+                    <label for="clientName">Name</label>
+                    <input id="clientName" name="clientName" type="text" class="form-control form-control-sm inputOTP"
+                        style="min-height: 0px;
+                 padding:5px;" aria-describedby="emailHelp" placeholder="Enter Your Name)" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="clientMoblie">Moblie Number</label>
+                    <input id="clientMoblie" name="clientMoblie"type="text" class="form-control"  placeholder="Moblie Number" style="min-height: 0px;
+                    padding:5px;" required>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                    <label for="clientEmail">Email</label>
+                    <input id="clientEmail" name="clientEmail"type="Email" class="form-control"  placeholder="Enter Email" style="min-height: 0px;
+                    padding:5px;" required>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                    <label for="clientAltMoblie">Alternate Moblie</label>
+                    <input id="clientAltMoblie" name="clientAltMoblie"type="text" class="form-control"  placeholder="Enter Alternate Moblie" style="min-height: 0px;
+                    padding:5px;" required>
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="clientAddress1">Address</label>
+                <input id="clientAddress1" name="clientAddress1" type="text" class="form-control"  placeholder="1234 Main St" style="min-height: 0px;
+                  padding:5px;" required>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="clientAddress2 ">Address 2</label>
+                <input id="clientAddress2" name="clientAddress2" type="text" class="form-control"  placeholder="Apartment, studio, or floor"
+                    style="min-height: 0px;
+                  padding:5px;" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="clientCity">City</label>
+                    <input id="clientCity" name="clientCity"" type="text" class="form-control" id="inputCity" style="min-height: 0px;
+                    padding:5px;" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="clientState">State</label>
+                    <input id="clientState" name="clientState" type="text" class="form-control"  style="min-height: 0px;
+                    padding:5px;" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="clientZip">Zip</label>
+                    <input id="clientZip" name="clientZip" type="text" class="form-control"  style="min-height: 0px;
+                    padding:5px;">
+                </div>
+            </div>
+            <div class="col-md-12 m-t-2">
+                <button type="submit" class="btn btn-success-outline" style="padding: 5px;
+                font-weight: bolder;
+                margin-left: 0px;
+                font-style: italic;
+                border-radius: 0px;">Place Order</button>
+            </div>
+        </form>`
+                    if (Object.keys(cart).length === 0) {
+                        document.getElementById('orderFormDiv').innerHTML = ``;
+                    }
+                }
+            })
+    })
+
+    // remove order
+    $('#orderDetailDiv').on('click', 'button.removeOrder', function () {
+        let cart = JSON.parse(localStorage.getItem('cart'))
+        let productList = JSON.parse(localStorage.getItem('productsName'))
+        let productID = this.id.slice(6,)
+        let bookedOrder={}
+        document.getElementById(`card${productID}`).innerHTML = `<p class="p-x-2 p-y-0"><strong><em>${productList[productID][0]}</strong></em> is removed.</p>`
+        delete cart[productID]
+        delete productList[productID]
+        localStorage.setItem('cart', JSON.stringify(cart))
+        localStorage.setItem('productsName', JSON.stringify(productList))
+        updateCart(cart)
+        let subTotalOfOrder = 0;
+        for (const product in productList) {
+            subTotalOfOrder = subTotalOfOrder + (parseFloat(productList[product][1]) * parseInt(cart[product]))
+            bookedOrder[product] = { name: productList[product][0], price: productList[product][1], qty: cart[product] }
+        }
+        bookedOrder=JSON.stringify(bookedOrder)
+        document.getElementById('orderDetailDivHeading').innerHTML = ` <h4 class="m-y-2">Step 2: Review Cart Orders</h4>
+                    <p>There are<strong><em> ${Object.keys(cart).length} item(s)</em></strong> in your cart and <strong><em>SubTotal is :${subTotalOfOrder}</em></strong> `
+        document.getElementById('bookedOrder').value=bookedOrder
+        if (Object.keys(cart).length === 0) {
+            document.getElementById('orderFormDiv').innerHTML = ``;
+        }
+    })
+
+   
+
+</script>
+{% endblock pagescript%}

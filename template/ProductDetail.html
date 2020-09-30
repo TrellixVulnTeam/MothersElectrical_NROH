@@ -1,7 +1,8 @@
 {% extends 'layout.html' %}
 {% load static %}
-{% block title %}ProductType-Mothers Electrical
+{% block title %}ProductType-MothersElectrical
 {% endblock title %}
+{% block activeProduct %}link_active{% endblock activeProduct %}
 {% block content %}
 
 <section class="mbr-section mbr-section__container article" id="header3-3v"
@@ -16,37 +17,114 @@
     </div>
 </section>
 
- <section class="mbr-cards mbr-section mbr-section-nopadding" id="features3-1g"
+<section class="mbr-cards mbr-section mbr-section-nopadding" id="features3-1g"
     style="background-color: rgb(255, 255, 255);">
 
 
 
     <div class="mbr-cards-row row">
-       <div class=" col-xs-12 col-sm-6 col-md-5 col-lg-5" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class=" col-xs-12 col-sm-6 col-md-5 col-lg-5" style="padding-top: 80px; padding-bottom: 80px;">
             <div class="container">
                 <div class="card cart-block">
                     <div><a href="/Products/{{Type}}/Industrial">
-                    <img src="/media/{{Product.p_img}}" width="200px" height="200px" ></a></div>
-                    
+                            <img id="imgpr{{Product.p_id}}" src="/media/{{Product.p_img}}" width="200px" height="200px"></a></div>
+
                 </div>
             </div>
         </div>
 
-         <div class=" col-xs-12 col-sm-6 col-md-7 col-lg-7" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class=" col-xs-12 col-sm-6 col-md-7 col-lg-7" style="padding-top: 80px; padding-bottom: 80px;">
             <div class="container">
                 <div class="card cart-block" style="text-align:left">
                     <div class="card-block">
-                        <h4 class="card-title">{{Product.p_name|capfirst}}</h4>
-                        <p class="card-text">{{ Product.p_desc}}  </p>
-                        <p class="card-text"><strong>Price :  </strong>{{Product.p_price}}
+                        <h4 id="namepr{{Product.p_id}}" class="card-title">{{Product.p_name|capfirst}}</h4>
+                        <p id="descpr{{Product.p_id}}" class="card-text">{{ Product.p_desc}} </p>
+                        <p id="pricepr{{Product.p_id}}" class="card-text"><strong>Price : </strong>{{Product.p_price}} INR
                         <p class="card-text"><strong>Warranty: </strong>{{ Product.p_warranty}}
-                         <p class="card-text"><strong>Type: </strong>{{ Product.p_type}}
-                         {% comment %} <p class="card-text"><strong>Category: </strong>{{ Product.p_category}} {% endcomment %}
+                        <p class="card-text"><strong>Type: </strong>{{ Product.p_type}}
+                            {% comment %}
+                        <p class="card-text"><strong>Category: </strong>{{ Product.p_category}} {% endcomment %}
                         </p>
+                        <span id='divpr{{Product.p_id}}' class="divpr">
+                            <button class="btn btn-md btn-danger-outline btn-danger cart" id="pr{{Product.p_id}}"
+                                style="padding: 7px;font-weight: bolder;margin-top: 18px; font-style: italic; ">
+                                Add To Cart
+                            </button>
+                        </span>
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
     </div>
-</section> 
+</section>
 {% endblock content %}
+{% block pagescript %}
+<script>
+    if (localStorage.getItem('cart') === null) {
+        var cart = {};
+    }
+    else {
+        cart = JSON.parse(localStorage.getItem('cart'))
+        updateCart(cart)
+    }
+
+
+   // Items are Added into cart
+   $('.divpr').on('click','.cart',function () {
+        var idstr = this.id.toString();
+        if (JSON.parse(localStorage.getItem('cart')) !== null) {
+            cart = JSON.parse(localStorage.getItem('cart'))
+        }
+
+        if (cart[idstr] !== undefined) {
+            cart[idstr] = cart[idstr] + 1
+            
+        }
+        else {
+            if (JSON.parse(localStorage.getItem('productsName')) === null) {
+                var productsName = {};
+            }
+            else {
+                console.log('running-2')
+                productsName = JSON.parse(localStorage.getItem('productsName'))
+            }
+            cart[idstr] = 1;
+            productsName[idstr] = [document.getElementById('name' + idstr).innerHTML,document.getElementById('price'+idstr).innerHTML,document.getElementById('desc'+idstr).innerHTML,document.getElementById('img'+idstr).src]
+            localStorage.setItem('productsName', JSON.stringify(productsName))
+        }
+        localStorage.setItem('cart', JSON.stringify(cart))
+        updateCart(JSON.parse(localStorage.getItem('cart')))
+    })
+
+    // item Decrement in Cart
+    $('.divpr').on('click', 'button.minus', function () {
+       let cart = JSON.parse(localStorage.getItem('cart'))
+        let itemId = this.id.slice(5,)
+        cart[itemId] = cart[itemId] - 1
+         cart[itemId] = Math.max(0, cart[itemId])
+        console.log(cart[itemId])
+        console.log(itemId,'line 125')
+        if (cart[itemId]==0){
+            document.getElementById('div'+itemId).innerHTML=`<button class="btn btn-md btn-danger-outline btn-danger cart" id="${itemId}"style="padding: 7px;font-weight: bolder;margin-top: 18px; font-style: italic; ">
+                                Add To Cart
+                            </button>`
+        }
+        else{
+
+        document.getElementById(itemId).innerHTML = cart[itemId]
+        }
+        localStorage.setItem('cart', JSON.stringify(cart))
+        updateCart(cart)
+    })
+
+    // Item increment in cart
+    $('.divpr').on('click', 'button.plus', function () {
+        let cart = JSON.parse(localStorage.getItem('cart'))
+        let itemId = this.id.slice(4,)
+        cart[itemId] = cart[itemId] + 1
+        document.getElementById(itemId).innerHTML = cart[itemId]
+        localStorage.setItem('cart', JSON.stringify(cart))
+        updateCart(cart)
+    })
+</script>
+{%endblock pagescript%}

@@ -73,20 +73,23 @@
                                 <div class="dropdown-menu ">
                                     {% comment %} <a class="dropdown-item" href="#">All Products</a> {% endcomment %}
                                     <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item"
-                                        href="/Products/Wires">Wires</a>
+                                        href="/Products/WiringDevices">Wiring Devices</a>
                                     <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item"
                                         href="/Products/Lighting">Lighting</a>
                                     <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item"
-                                        href="/Products/Sockets">Sockets</a>
+                                        href="/Products/Fan">Fan</a>
                                     <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item"
-                                        href="/Products/ModernKitchen">Modern Kitchen</a>
+                                        href="/Products/MCBs">MCBs & DB</a>
                                     <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item"
-                                        href="/Products/SwitchGear">SwitchGear</a>
+                                        href="/Products/WiresAndCables">Wires,Cables,Taps</a>
                                     <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item"
-                                        href="/Products/Fans">Fans</a>
-                                    {% comment %} <a class="dropdown-item" href="photo-portfolio/index.html">Photo
+                                        href="/Products/PipeAndBit">Pipes & Bit</a>
+                                    <a style="font-size: 15px; font-weight: 600; color:black;" class="dropdown-item"
+                                        href="/Products/Others">Others</a>
+                                   
+                                    <!-- <a class="dropdown-item" href="photo-portfolio/index.html">Photo
                                         Portfolio
-                                        Template</a>{% endcomment %}
+                                        Template</a> -->
                                 </div>
                             </li>
                             <li class="nav-item nav-btn {% block activeRetailer %} {% endblock activeRetailer %}">
@@ -137,7 +140,7 @@
             </div>
         </nav>
     </section>
-    <div id="previewOrderList"></div>
+    <div id="previewOrderList" class="previewOrderList"></div>
 
 
     {%  block content%} {% endblock content %}
@@ -152,18 +155,21 @@
                     <div><a href="/"><img width="180px" src="{% static 'img/logo.png' %}"></div>
                 </div>
                 <div class="mbr-footer-content col-xs-12 col-md-3">
-                    <p><strong>Address</strong><br>
+                    <p><strong style="border-bottom: 2px solid #d62226;
+                        padding-bottom: 5px ;">Address</strong><br>
                         Shop No. :- 7, New Market,<br>
                         Hathua Road Mirganj (841438)</p>
                 </div>
                 <div class="mbr-footer-content col-xs-12 col-md-3">
-                    <p><strong>Contacts</strong><br>
+                    <p><strong style="border-bottom: 2px solid #d62226;
+                        padding-bottom: 5px ;">Contacts</strong><br>
                         Email: electricalmothers@gmail.com<br>
                         Moblie: +91 8193945463<br></p>
                     {% comment %} Fax: +1 (0) 000 0000 002 {% endcomment %}
                 </div>
                 <div class="mbr-footer-content col-xs-12 col-md-3">
-                    <p><strong>Social Links</strong><br>
+                    <p><strong style="border-bottom: 2px solid #d62226;
+                        padding-bottom: 5px ;">Social Links</strong><br>
                         <a class="text-black" href="https://www.facebook.com/MothersElectrical"><img width=50px
                                 src="{%static 'img/fb.png'%}" alt="facebook icon"></a>
                         <a class="text-black" href="https://instagram.com"><img width=50px
@@ -174,6 +180,10 @@
                 </div>
             </div>
         </div>
+        <div id="bottom_basket_div"> <p id='cartLink2' class="nav-link link cartLink bottom_cart " href="/ContactUs"
+            style="font-size: 15px;" aria-expanded="false"><img id="cartLogo"
+                src="{% static 'img/basket2.png'%}" width="35px" alt="Cart"><span style="color:black"
+                id="cartCount2">0</span> </p></div>
     </section>
 
     <footer class="mbr-small-footer mbr-section mbr-section-nopadding" id="footer1-2p"
@@ -187,7 +197,8 @@
     </footer>
 
 
-    <script src="https://code.jquery.com/jquery-1.11.0.js" integrity="sha256-zgND4db0iXaO7v4CLBIYHGoIIudWI5hRMQrPB20j0Qw=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.11.0.js"
+        integrity="sha256-zgND4db0iXaO7v4CLBIYHGoIIudWI5hRMQrPB20j0Qw=" crossorigin="anonymous"></script>
     <script src="{% static '/tether/tether.min.js' %}"></script>
     <script src="{% static '/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static '/smooth-scroll/smooth-scroll.js' %}"></script>
@@ -202,7 +213,7 @@
         function updateCart(cart) {
             console.log(cart)
             var itemsInCart = 0
-            let productsName=JSON.parse(localStorage.getItem('productsName'))
+            let productsName = JSON.parse(localStorage.getItem('productsName'))
             for (const item in cart) {
                 itemsInCart = itemsInCart + cart[item]
                 if (cart[item] === 0) {
@@ -220,9 +231,10 @@
                 }
             }
             console.log(cart)
-            localStorage.setItem('cart',JSON.stringify(cart))
-            localStorage.setItem('productsName',JSON.stringify(productsName))
+            localStorage.setItem('cart', JSON.stringify(cart))
+            localStorage.setItem('productsName', JSON.stringify(productsName))
             document.getElementById('cartCount').innerHTML = itemsInCart
+            document.getElementById('cartCount2').innerHTML = itemsInCart
         }
 
         if (localStorage.getItem('cart') !== null) {
@@ -231,6 +243,7 @@
         }
         else {
             document.getElementById('cartCount').innerHTML = 0
+            document.getElementById('cartCount2').innerHTML = 0
         }
 
         // Show Cart Details in Nav bar
@@ -240,7 +253,7 @@
             let itemsDetailsInCart = ""
             console.log(productsNameList)
             if (productsNameList === null) {
-                itemsDetailsInCart = "<div class='cartDetailsInNav'><p class='cartDetailsInNav_Heading' >Oops...! Your cart is empty</p></div>"
+                itemsDetailsInCart = "<div class='cartDetailsInNav' id='emptyCartDetailInnav'><p class='cartDetailsInNav_Heading' >Oops...! Your cart is empty</p></div>"
             }
             else {
 
@@ -257,12 +270,49 @@
             document.getElementById('previewOrderList').innerHTML = itemsDetailsInCart
 
         })
+        //////////////this function for bottom cart which is visible for small devices
 
-        // Hide Cart Details in Nav bar
-        $('#cartLink').mousedown(function () {
+        $('#bottom_basket_div').on('click','#cartLink2',function () {
+            let productsNameList = JSON.parse(localStorage.getItem('productsName'))
+            let cart = JSON.parse(localStorage.getItem('cart'))
+            let itemsDetailsInCart = ""
+            console.log(productsNameList)
+            if (productsNameList === null) {
+                itemsDetailsInCart = "<div class='cartDetailsInNav' id='emptyCartDetailInnav'><p class='cartDetailsInNav_Heading' >Oops...! Your cart is empty</p></div>"
+            }
+            else {
+
+                itemsDetailsInCart = "<div id='cartDetailsInNav' class='cartDetailsInNav'><p class='cartDetailsInNav_Heading' > Items in your cart<a href='/Checkout' class='btn btn-md btn-danger-outline btn-danger ' style='padding: 7px;font-weight: bolder;float:right; margin-left:0px; font-style: italic; border-radius:0px; '>Checkout</a></p>"
+                let forLoopCounter = 0
+                for (const item in productsNameList) {
+                    console.log(productsNameList[item][0])
+                    forLoopCounter++;
+                    itemsDetailsInCart = itemsDetailsInCart + "<p class='cartDetailsInNav_Content'><strong>" + forLoopCounter + ". </strong>" + productsNameList[item][0].slice(0, 20) + " , QTY " + cart[item] + "</P>"
+
+                }
+                itemsDetailsInCart = itemsDetailsInCart + "</div>"
+            }
+            document.getElementById('bottom_basket_div').innerHTML=` <div id="hideCart"> <p id='cartLink2' class="nav-link link cartLink bottom_cart " href="/ContactUs"
+            style="font-size: 15px;" aria-expanded="false"><img id="cartLogo"
+                src="{% static 'img/cross.png'%}" width="35px" alt="Cart"></p></div>`
+            document.getElementById('previewOrderList').innerHTML = itemsDetailsInCart
+
+        })
+
+        // Hide Cart Details in Nav bar emptyCartDetailInnav
+        $('.previewOrderList').on('mouseleave','#emptyCartDetailInnav,#cartDetailsInNav',(function () {
             console.log('runnign')
             document.getElementById('previewOrderList').innerHTML = ""
-        })
+        }))
+         // Hide Cart Details in Nav bar onclick event
+        $('#bottom_basket_div').on('click','#hideCart',(function () {
+            console.log('runnign')
+            document.getElementById('previewOrderList').innerHTML = ""
+            document.getElementById('bottom_basket_div').innerHTML=` <p id='cartLink2' class="nav-link link cartLink bottom_cart " href="/ContactUs"
+            style="font-size: 15px;" aria-expanded="false"><img id="cartLogo"
+                src="{% static 'img/basket2.png'%}" width="35px" alt="Cart"><span style="color:black"
+                id="cartCount2">0</span> </p>`
+        }))
 
     </script>
     {% block pagescript %}

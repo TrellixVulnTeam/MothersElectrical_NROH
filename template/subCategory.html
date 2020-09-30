@@ -1,0 +1,401 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}Products-MothersElectrical
+{% endblock title %}
+{% block activeProduct %}link_active{% endblock activeProduct %}
+
+{% block content %}
+
+<section class="mbr-section mbr-section__container article" id="header3-3v"
+    style="background-color: rgb(239, 239, 239); padding-top: 60px; padding-bottom: 0px; margin-top:50px">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h5 class="mbr-section-title display-3">{{Category}} Products</h5>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mbr-cards mbr-section mbr-section-nopadding" id="features3-1g"
+    style="background-color: rgb(255, 255, 255); text-align: center;">
+    <div class="mbr-cards-row row">
+        <!-----------For Lighting Company------------------>
+        {% if Category == "Lighting" %}
+        <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6"
+            style="padding-top: 80px; padding-bottom: 80px; text-align:center;">
+            <div class="container">
+                <!-- <div><a href="/Products/{{Type}}/Havells">
+                        <img class="company_Logo" src="/static/img/havells.png" width="200px" height="200px"></a></div> -->
+                <h4 class="card-title "><a href="/Products/Lighting/Consumer" class="">Consumer Lighting</a></h4>
+            </div>
+        </div>
+
+        <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="container">
+                <div class="card cart-block">
+                    <!-- <div><a href="/Products/{{Type}}/Bajaj">
+                            <img class="company_Logo" src="/static/img/Bajaj.jpg" width="200px" height="200px"></a>
+                    </div> -->
+                    <h4 class="card-title "><a href="/Products/Lighting/Retail" class="">Retail & Hosipitality
+                            Lighting</a></h4>
+                </div>
+            </div>
+        </div>
+
+        <div class=" col-xs-6 col-sm-6 col-md-63 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="container">
+                <div class="card cart-block">
+                    <!-- <div><a href="/Products/{{Type}}/syska">
+                            <img class="company_Logo" src="/static/img/syska.png" width="200px" height="200px"></a>
+                    </div> -->
+                    <h4 class="card-title "><a href="/Products/Lighting/Outdoor" class="">Outdoor Lighting</a></h4>
+                </div>
+            </div>
+        </div>
+
+        <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="container">
+                <div class="card cart-block">
+                    <!-- <div><a href="/Products/{{Type}}/wipro">
+                            <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a>
+                    </div> -->
+                    <h4 class="card-title "><a href="/Products/Lighting/Commerical" class="">Commerical Lighting</a>
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="container">
+                <div class="card cart-block">
+                    <!-- <div><a href="/Products/{{Type}}/All">
+                            <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a>
+                    </div> -->
+                    <h4 class="card-title "><a href="/Products/Lighting/All/All" class="">All lighting</a></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-----------For Wires Company------------------>
+    {% elif Category == "WiringDevices" %}
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6"
+        style="padding-top: 80px; padding-bottom: 80px; text-align:center;">
+        <div class="container">
+            <!-- <div><a href="/Products/{{Type}}/Havells">
+                <img class="company_Logo" src="/static/img/havells.png" width="200px" height="200px"></a></div> -->
+            <h4 class="card-title "><a href="/Products/WiringDevices/SwitchSockets" class="">Sockets & Switches</a></h4>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/Bajaj">
+                    <img class="company_Logo" src="/static/img/Bajaj.jpg" width="200px" height="200px"></a>
+            </div> -->
+                <h4 class="card-title "><a href="/Products/WiringDevices/Accessories" class="">Accessories</a></h4>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-63 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/syska">
+                    <img class="company_Logo" src="/static/img/syska.png" width="200px" height="200px"></a>
+            </div> -->
+                <h4 class="card-title "><a href="/Products/WiringDevices/MetalboxAndFanBox" class="">Metal Box & Fan
+                        Box</a></h4>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/wipro">
+                    <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a>
+            </div> -->
+                <h4 class="card-title "><a href="/Products/WiringDevices/ModularBox" class="">ModularBox</a></h4>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/All">
+                    <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a>
+            </div> -->
+                <h4 class="card-title "><a href="/Products/WiringDevices/All/All" class="">All Wiring Devices</a></h4>
+            </div>
+        </div>
+    </div>
+
+    <!-----------For Fans ------------------>
+    {% elif Category == "Fan" %}
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6"
+        style="padding-top: 80px; padding-bottom: 80px; text-align:center;">
+        <div class="container">
+            <!-- <div><a href="/Products/{{Type}}/Havells">
+                <img class="company_Logo" src="/static/img/havells.png" width="200px" height="200px"></a></div> -->
+            <h4 class="card-title "><a href="/Products/Fan/Ceiling" class="">Ceiling Fans</a></h4>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/Bajaj">
+                    <img class="company_Logo" src="/static/img/Bajaj.jpg" width="200px" height="200px"></a>
+            </div> -->
+                <h4 class="card-title "><a href="/Products/Fan/Table" class="">Table Fans</a></h4>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-63 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/syska">
+                    <img class="company_Logo" src="/static/img/syska.png" width="200px" height="200px"></a>
+            </div> -->
+                <h4 class="card-title "><a href="/Products/Fan/Wall" class="">Wall Fans</a></h4>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/wipro">
+                    <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a>
+            </div> -->
+                <h4 class="card-title "><a href="/Products/Fan/Stand" class="">Stand Fans</a></h4>
+            </div>
+        </div>
+    </div>
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/wipro">
+                    <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a>
+            </div> -->
+                <h4 class="card-title "><a href="/Products/Fan/Exhaust" class="">Exhaust Fans</a></h4>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/All">
+                    <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a>
+            </div> -->
+                <h4 class="card-title "><a href="/Products/Fan/All/All" class="">All Fan</a></h4>
+            </div>
+        </div>
+    </div>
+
+    <!-----------For  MCBs------------------>
+    {% elif Category == "MCBs" %}
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6"
+        style="padding-top: 80px; padding-bottom: 80px; text-align:center;">
+        <div class="container">
+            <!-- <div><a href="/Products/{{Type}}/Havells">
+                <img class="company_Logo" src="/static/img/havells.png" width="200px" height="200px"></a></div> -->
+            <h4 class="card-title "><a href="/Products/MCBs/MCB" class="">MCBs</a></h4>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/Bajaj">
+                    <img class="company_Logo" src="/static/img/Bajaj.jpg" width="200px" height="200px"></a>
+            </div> -->
+                <h4 class="card-title "><a href="/Products/MCBs/Isolator" class="">Isolator</a></h4>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-63 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/syska">
+                    <img class="company_Logo" src="/static/img/syska.png" width="200px" height="200px"></a>
+            </div> -->
+                <h4 class="card-title "><a href="/Products/MCBs/RCCB" class="">RCCBs</a></h4>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/wipro">
+                    <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a>
+            </div> -->
+                <h4 class="card-title "><a href="/Products/MCBs/DistributionBoard" class="">Distribution Board</a></h4>
+            </div>
+        </div>
+    </div>
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/wipro">
+                    <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a>
+            </div> -->
+                <h4 class="card-title "><a href="/Products/MCBs/ChangeOverBoard" class="">ChangeOver Board</a></h4>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/All">
+                    <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a>
+            </div> -->
+                <h4 class="card-title "><a href="/Products/MCBs/All/All" class="">All </a></h4>
+            </div>
+        </div>
+    </div>
+
+
+    <!-----------For Wires and cables------------------>
+    {% elif Category == "WiresAndCables" %}
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6"
+        style="padding-top: 80px; padding-bottom: 80px; text-align:center;">
+        <div class="container">
+            <!-- <div><a href="/Products/{{Type}}/Havells">
+            <img class="company_Logo" src="/static/img/havells.png" width="200px" height="200px"></a></div> -->
+            <h4 class="card-title "><a href="/Products/WiresAndCables/Building" class="">Building Wires & Cables</a>
+            </h4>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/Bajaj">
+                <img class="company_Logo" src="/static/img/Bajaj.jpg" width="200px" height="200px"></a>
+        </div> -->
+                <h4 class="card-title "><a href="/Products/WiresAndCables/Residential" class="">Residential Wires &
+                        Cables</a></h4>
+            </div>
+        </div>
+    </div>
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/All">
+                <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a>
+        </div> -->
+                <h4 class="card-title "><a href="/Products/WiresAndCables/Tapes" class="">Tapes</a></h4>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/All">
+                <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a>
+        </div> -->
+                <h4 class="card-title "><a href="/Products/WiresAndCables/All/All" class="">All </a></h4>
+            </div>
+        </div>
+    </div>
+
+    <!-----------For pipes and Bit------------------>
+    {% elif Category == "PipeAndBit" %}
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6"
+        style="padding-top: 80px; padding-bottom: 80px; text-align:center;">
+        <div class="container">
+            <!-- <div><a href="/Products/{{Type}}/Havells">
+            <img class="company_Logo" src="/static/img/havells.png" width="200px" height="200px"></a></div> -->
+            <h4 class="card-title "><a href="/Products/PipeAndBit/UndergroundAccessories" class="">UnderGround Wiring Accessories</a>
+            </h4>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/Bajaj">
+                <img class="company_Logo" src="/static/img/Bajaj.jpg" width="200px" height="200px"></a>
+        </div> -->
+                <h4 class="card-title "><a href="/Products/PipeAndBit/BitWiring" class="">Bit Wiring Accessories
+                        </a></h4>
+            </div>
+        </div>
+    </div>
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/All">
+                <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a>
+        </div> -->
+                <h4 class="card-title "><a href="/Products/PipeAndBit/Tapes" class="">Tapes</a></h4>
+            </div>
+        </div>
+    </div>
+
+    <!-----------For pipes and Bit------------------>
+    {% elif Category == "Others" %}
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6"
+        style="padding-top: 80px; padding-bottom: 80px; text-align:center;">
+        <div class="container">
+            <!-- <div><a href="/Products/{{Type}}/Havells">
+            <img class="company_Logo" src="/static/img/havells.png" width="200px" height="200px"></a></div> -->
+            <h4 class="card-title "><a href="/Products/Others/Iron/No Company" class="">Iron</a>
+            </h4>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/Bajaj">
+                <img class="company_Logo" src="/static/img/Bajaj.jpg" width="200px" height="200px"></a>
+        </div> -->
+                <h4 class="card-title "><a href="/Products/Others/Waterheater/NO Company" class="">Water Heater
+                        </a></h4>
+            </div>
+        </div>
+    </div>
+    <div class=" col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <!-- <div><a href="/Products/{{Type}}/All">
+                <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a>
+        </div> -->
+                <h4 class="card-title "><a href="/Products/Others/All/All" class="">All</a></h4>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-xs-center">
+                    <h4 class="mbr-section-title display-4">SOORY ! NO PRODUCTS UNDER THIS CATEGORY</h4>
+                    <h5 class="mbr-section-title display-3">Added Soon</h5>
+                    <div class="lead ">
+                        <p><strong><em>This is our introductory offers, so wait for it come our shop take a benefits
+                                    of this offers.</em></strong></p>
+                    </div>
+                    <!-- <div><a class="btn btn-secondary" href="mobirise-3-bootstrap-template.zip">DOWNLOAD NOW</a> </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    </div>
+</section>
+
+</section>
+{% endblock content %}

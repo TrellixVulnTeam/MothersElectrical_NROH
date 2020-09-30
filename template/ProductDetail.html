@@ -27,7 +27,7 @@
             <div class="container">
                 <div class="card cart-block">
                     <div><a href="/Products/{{Type}}/Industrial">
-                            <img src="/media/{{Product.p_img}}" width="200px" height="200px"></a></div>
+                            <img id="imgpr{{Product.p_id}}" src="/media/{{Product.p_img}}" width="200px" height="200px"></a></div>
 
                 </div>
             </div>
@@ -38,8 +38,8 @@
                 <div class="card cart-block" style="text-align:left">
                     <div class="card-block">
                         <h4 id="namepr{{Product.p_id}}" class="card-title">{{Product.p_name|capfirst}}</h4>
-                        <p class="card-text">{{ Product.p_desc}} </p>
-                        <p class="card-text"><strong>Price : </strong>{{Product.p_price}} INR
+                        <p id="descpr{{Product.p_id}}" class="card-text">{{ Product.p_desc}} </p>
+                        <p id="pricepr{{Product.p_id}}" class="card-text"><strong>Price : </strong>{{Product.p_price}} INR
                         <p class="card-text"><strong>Warranty: </strong>{{ Product.p_warranty}}
                         <p class="card-text"><strong>Type: </strong>{{ Product.p_type}}
                             {% comment %}
@@ -70,7 +70,7 @@
 
 
    // Items are Added into cart
-    $('.cart').click(function () {
+   $('.divpr').on('click','.cart',function () {
         var idstr = this.id.toString();
         if (JSON.parse(localStorage.getItem('cart')) !== null) {
             cart = JSON.parse(localStorage.getItem('cart'))
@@ -78,20 +78,19 @@
 
         if (cart[idstr] !== undefined) {
             cart[idstr] = cart[idstr] + 1
-
+            
         }
         else {
             if (JSON.parse(localStorage.getItem('productsName')) === null) {
                 var productsName = {};
             }
             else {
+                console.log('running-2')
                 productsName = JSON.parse(localStorage.getItem('productsName'))
-
             }
             cart[idstr] = 1;
-            productsName[idstr] = [document.getElementById('name' + idstr).innerHTML,document.getElementById('price'+idstr).innerHTML]
+            productsName[idstr] = [document.getElementById('name' + idstr).innerHTML,document.getElementById('price'+idstr).innerHTML,document.getElementById('desc'+idstr).innerHTML,document.getElementById('img'+idstr).src]
             localStorage.setItem('productsName', JSON.stringify(productsName))
-
         }
         localStorage.setItem('cart', JSON.stringify(cart))
         updateCart(JSON.parse(localStorage.getItem('cart')))
@@ -99,12 +98,21 @@
 
     // item Decrement in Cart
     $('.divpr').on('click', 'button.minus', function () {
-        let cart = JSON.parse(localStorage.getItem('cart'))
+       let cart = JSON.parse(localStorage.getItem('cart'))
         let itemId = this.id.slice(5,)
         cart[itemId] = cart[itemId] - 1
-        cart[itemId] = Math.max(0, cart[itemId])
+         cart[itemId] = Math.max(0, cart[itemId])
+        console.log(cart[itemId])
+        console.log(itemId,'line 125')
+        if (cart[itemId]==0){
+            document.getElementById('div'+itemId).innerHTML=`<button class="btn btn-md btn-danger-outline btn-danger cart" id="${itemId}"style="padding: 7px;font-weight: bolder;margin-top: 18px; font-style: italic; ">
+                                Add To Cart
+                            </button>`
+        }
+        else{
 
         document.getElementById(itemId).innerHTML = cart[itemId]
+        }
         localStorage.setItem('cart', JSON.stringify(cart))
         updateCart(cart)
     })

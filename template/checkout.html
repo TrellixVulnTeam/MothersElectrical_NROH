@@ -84,7 +84,6 @@
             'phone': $('input[name=inputPhone').val(),
             'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
         };
-        console.log(formData)
         $.ajax({
             type: 'POST',
             url: '/Checkout/',
@@ -92,7 +91,6 @@
             encode: true
         })
             .done(function (data) {
-                console.log(data)
                 if(data.message!==''){
                     if(data.msgTag=="success"){
                         document.getElementById('modalContent').innerHTML=` <img src="{% static '/img/success.png' %}" alt="success" width="30px">   ${data.message}`
@@ -104,7 +102,6 @@
                 }
             })
         let userNumber = document.getElementById('inputPhone').value
-        console.log(userNumber)
         document.getElementById('OTPVerifyDiv').innerHTML = ` <form id='verifyOTPForm' class="sendOTPForm"> 
             <div class="form-group">
                 <input type=hidden name=phoneNumber value=${userNumber} required>
@@ -124,7 +121,6 @@
     // Views Orders Details and Order Placed
     $('.OTPVerifyDiv').on('submit', '#verifyOTPForm', function (event) {
         event.preventDefault();
-        console.log('verify the password')
         var formData = {
             'phone': $('input[name=phoneNumber').val(),
             'phoneOTP': $('input[name=inputOTP').val(),
@@ -137,7 +133,6 @@
             encode: true
         })
             .done(function (data) {
-                console.log(data)
                 if(data.msgTag=="success"){
                     document.getElementById('modalContent').innerHTML=` <img src="{% static '/img/success.png' %}" alt="success" width="30px">   ${data.message}`
                 }
@@ -277,7 +272,6 @@
         document.getElementById(`card${productID}`).innerHTML = `<p class="p-x-2 p-y-0"><strong><em>${productList[productID][0]}</strong></em> is removed.</p>`
         delete cart[productID]
         delete productList[productID]
-        console.log('order remove', productID)
         localStorage.setItem('cart', JSON.stringify(cart))
         localStorage.setItem('productsName', JSON.stringify(productList))
         updateCart(cart)

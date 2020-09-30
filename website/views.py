@@ -38,7 +38,6 @@ def get_random_alphanumeric_string(letters_count, digits_count):
 # ---------------------------------
 def index(request):
     GetNews=News.objects.all()
-    print(GetNews)
     return render(request,'index.html',{'AllNews':GetNews})
 
 # ---------------------------------
@@ -49,7 +48,6 @@ def contactus(request):
         email=request.POST.get('email')
         phone=request.POST.get('phone')
         message=request.POST.get('message')
-        print(f'{name}--{email}--{phone}--{message}')
 
         if len(name)<2 or len(email)<5 or len(phone)<10 or len(message)<25:
             messages.error(request,'Please Enter the Valid details and fill correclty')
@@ -890,9 +888,18 @@ def Type(request,type):
     return render(request,'Type.html',{'Type':type})
 
 # ---------------------------------
-def product(request,category,company):
-    GetProd=Product_detail.objects.filter(p_company=company,p_category=category)
-    return render(request,'product.html',{'Products':GetProd,'Category':category})
+def product(request,category,subCategory):
+    GetProd=Product_detail.objects.filter(p_subcategory=subCategory,p_category=category)
+    return render(request,'type.html',{'Products':GetProd,'Category':category,'subCategory':subCategory})
+
+def productViewByCompany(request,category,subCategory,company):
+    if subCategory=="All":
+        GetProd=Product_detail.objects.filter(p_category=category)
+        return render(request,'product.html',{'Products':GetProd,'Category':category,'subCategory':subCategory,'Company':company})
+    else:
+        GetProd=Product_detail.objects.filter(p_subcategory=subCategory,p_category=category,p_company=company)
+        return render(request,'product.html',{'Products':GetProd,'Category':category,'subCategory':subCategory,'Company':company})
+
 
 def AllProduct(request,type):
     GetProd=Product_detail.objects.filter(p_type=type)
@@ -902,6 +909,8 @@ def productDetail(request,id):
     GetProd=Product_detail.objects.filter(p_id=id)
     return render(request,'ProductDetail.html',{'Product':GetProd[0]})
 
+def productCategory(request,Category):
+    return render(request,'subCategory.html',{'Category':Category})
 # ------------HandleLogin------------------
 def retailers(request):
     GetRetrailer=Retrailer_Detail.objects.all()
@@ -917,7 +926,6 @@ def retailers(request):
         else:
             messages.error(request,"Invalid credentials..! Please check your detials and Try Again")
             return redirect('wretrailers')
-    print(GetRetrailer)
     return render(request,'retailer.html',{"Retrailers":GetRetrailer})
 
 # ------------HandleLogout------------------
@@ -937,37 +945,34 @@ def checkout(request):
     if request.method=="POST" :
         phone=request.POST.get('phone')
         phoneOTP=request.POST.get('phoneOTP')
-        print(phone, phoneOTP)
         if phoneOTP==None:
             userMoblieNumber=phone
             getClients=clientMoblie.objects.filter(clientMoblieNumber=phone)
             
             if len(getClients)==0:
-                print('number save in db')
                 saveMoblie=clientMoblie(clientMoblieNumber=userMoblieNumber)
                 saveMoblie.save()
 
             # write a code to send a OTP msg to customer moblies
             oneTimePassword=get_random_alphanumeric_string(5, 3)
-            # payload = "sender_id=MEOTP&language=english&route=qt&numbers="+userMoblieNumber+"&message=36259&variables={#BB#}&variables_values="+oneTimePassword+""
-            # print(payload)
-            # headers = {
-            #             'authorization': "ZnmqBLXuWcHiG8jSCJ95do2bQ06p4R3k7tAFIaNMgvsP1wVhfDHER3mgUcbWXyzjMr6weJ250qOdZuf4", #---- api authorization key
-            #             'cache-control': "no-cache",
-            #             'content-type': "application/x-www-form-urlencoded"
-            #              }
-            # response = requests.request("POST", url, data=payload, headers=headers)
-            # responseJson=json.loads(response.text)
+            payload = "sender_id=MEOTP&language=english&route=qt&numbers="+userMoblieNumber+"&message=36259&variables={#BB#}&variables_values="+oneTimePassword+""
+
+            headers = {
+                        'authorization': "ZnmqBLXuWcHiG8jSCJ95do2bQ06p4R3k7tAFIaNMgvsP1wVhfDHER3mgUcbWXyzjMr6weJ250qOdZuf4", #---- api authorization key
+                        'cache-control': "no-cache",
+                        'content-type': "application/x-www-form-urlencoded"
+                         }
+            response = requests.request("POST", url, data=payload, headers=headers)
+            responseJson=json.loads(response.text)
             msgTag="success"
             msg=f"OTP(One Time Password is successfully send on this {phone}"
-            # if responseJson['message'][0]!='Message sent successfully':
-            #     msgTag='error'
-            #     msg=f"Something is wrong, Please retry after sometime"
+            if responseJson['message'][0]!='Message sent successfully':
+                msgTag='error'
+                msg=f"Something is wrong, Please retry after sometime"
            
             return JsonResponse({"message":msg,'otp':oneTimePassword,"msgTag":msgTag})
 
         else:
-            print(oneTimePassword)
             if phoneOTP==oneTimePassword:
                  isMoblieVerified=True
                  msgTag='success'
@@ -1003,8 +1008,6 @@ def placedOrder(request):
 
         getBookedOdr=OrderDetail.objects.latest('order_id')
         booked_order_items=json.loads(getBookedOdr.order_Items)
-        print('line 944',booked_order_items)
-        print('line 995', type(booked_order_items))
         orderTable=''
         serialNo=0
         for key,value in booked_order_items.items():

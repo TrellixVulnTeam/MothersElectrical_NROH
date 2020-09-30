@@ -18,23 +18,83 @@
 </section>
 
 <section class="mbr-cards mbr-section mbr-section-nopadding" id="features3-1g"
-    style="background-color: rgb(255, 255, 255); text-align: center;"> 
+    style="background-color: rgb(255, 255, 255); text-align: center;">
     <div class="mbr-cards-row row">
-    <!-----------For Lighting Company------------------>
-    {% if Type == "Lighting" %}
-    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3"
-        style="padding-top: 80px; padding-bottom: 80px; text-align:center;">
-        <div class="container">
-            <div><a href="/Products/{{Type}}/Havells">
-                    <img class="company_Logo" src="/static/img/havells.png" width="200px" height="200px"></a></div>
+        <!-----------For Lighting Company------------------>
+        {% if Category == "WiringDevices" %}
+        <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3"
+            style="padding-top: 80px; padding-bottom: 80px; text-align:center;">
+            <div class="container">
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Havells">
+                        <img class="company_Logo" src="/static/img/havells.png" width="200px" height="200px"></a></div>
+            </div>
+        </div>
+
+        <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="container">
+                <div class="card cart-block">
+                    <div><a href="/Products/{{Category}}/{{subCategory}}/LT">
+                            <img class="company_Logo" src="/static/img/LT.png" width="200px" height="200px"></a></div>
+                </div>
+            </div>
+        </div>
+
+        <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="container">
+                <div class="card cart-block">
+                    <div><a href="/Products/{{Category}}/{{subCategory}}/Anchor">
+                            <img class="company_Logo" src="/static/img/Anchor.png" width="200px" height="200px"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="container">
+                <div class="card cart-block">
+                    <div><a href="/Products/{{Category}}/{{subCategory}}/GreatWhite">
+                            <img class="company_Logo" src="/static/img/GreatWhite.png" width="200px" height="200px"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="container">
+                <div class="card cart-block">
+                    <div><a href="/Products/{{Category}}/{{subCategory}}/All">
+                            <img class="company_Logo" src="/static/img/CA.png" width="200px" height="200px"
+                                alt="C&C Company"></a></div>
+                </div>
+            </div>
+        </div>
+        <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="container">
+                <div class="card cart-block">
+                    <div><a href="/Products/{{Category}}/{{subCategory}}/Others">
+                            <img class="company_Logo" src="/static/img/noProductImage.png" width="200px"
+                                height="200px"></a></div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-----------For Lighting Company------------------>
+    {% elif Category == "Lighting" %}
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3"
+    style="padding-top: 80px; padding-bottom: 80px; text-align:center;">
+    <div class="container">
+        <div><a href="/Products/{{Category}}/{{subCategory}}/Havells">
+                <img class="company_Logo" src="/static/img/havells.png" width="200px" height="200px"></a></div>
+    </div>
+</div>
 
     <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
         <div class="container">
             <div class="card cart-block">
-                <div><a href="/Products/{{Type}}/Bajaj">
-                        <img class="company_Logo" src="/static/img/Bajaj.jpg" width="200px" height="200px"></a></div>
+                <div><a href="/Products/{{Category}}/{{subCategory}}/GreatWhite">
+                        <img class="company_Logo" src="/static/img/GreatWhite.png" width="200px" height="200px"></a>
+                </div>
             </div>
         </div>
     </div>
@@ -42,7 +102,7 @@
     <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
         <div class="container">
             <div class="card cart-block">
-                <div><a href="/Products/{{Type}}/syska">
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Syska">
                         <img class="company_Logo" src="/static/img/syska.png" width="200px" height="200px"></a></div>
             </div>
         </div>
@@ -51,8 +111,26 @@
     <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
         <div class="container">
             <div class="card cart-block">
-                <div><a href="/Products/{{Type}}/wipro">
-                        <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a></div>
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Jaguar">
+                        <img class="company_Logo" src="/static/img/Jaguar.jpg" width="200px" height="200px"></a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Orient">
+                        <img class="company_Logo" src="/static/img/Orient.jpg" width="200px" height="200px"></a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Wipro">
+                        <img class="company_Logo" src="/static/img/Wipro.png" width="200px" height="200px"></a></div>
             </div>
         </div>
     </div>
@@ -61,18 +139,26 @@
         <div class="container">
             <div class="card cart-block">
                 <div><a href="/Products/{{Type}}/All">
-                        <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a></div>
+                        <img class="company_Logo" src="/static/img/CA.png" width="200px" height="200px"
+                            alt="C&C Company"></a></div>
             </div>
         </div>
     </div>
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+    <div class="container">
+        <div class="card cart-block">
+            <div><a href="/Products/{{Category}}/{{subCategory}}/Others">
+                    <img class="company_Logo" src="/static/img/noProductImage.png" width="200px" height="200px"></a>
+            </div>
+        </div>
     </div>
-
-    <!-----------For Wires Company------------------>
-    {% elif Type == "Wires" %}
+</div>
+    <!-----------For Fan Company------------------>
+    {% elif Category == "Fan" %}
     <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3"
         style="padding-top: 80px; padding-bottom: 80px; text-align:center;">
         <div class="container">
-            <div><a href="/Products/{{Type}}/Havells">
+            <div><a href="/Products/{{Category}}/{{subCategory}}/Havells">
                     <img class="company_Logo" src="/static/img/havells.png" width="200px" height="200px"></a></div>
         </div>
     </div>
@@ -80,44 +166,7 @@
     <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
         <div class="container">
             <div class="card cart-block">
-                <div><a href="/Products/{{Type}}/Bajaj">
-                        <img class="company_Logo" src="/static/img/Bajaj.jpg" width="200px" height="200px"></a></div>
-            </div>
-        </div>
-    </div>
-
-    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
-        <div class="container">
-            <div class="card cart-block">
-                <div><a href="/Products/{{Type}}/syska">
-                        <img class="company_Logo" src="/static/img/syska.png" width="200px" height="200px"></a></div>
-            </div>
-        </div>
-    </div>
-
-    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
-        <div class="container">
-            <div class="card cart-block">
-                <div><a href="/Products/{{Type}}/wipro">
-                        <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a></div>
-            </div>
-        </div>
-    </div>
-
-    <!-----------For Sockets Company------------------>
-    {% elif Type == "Sockets" %}
-    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3"
-        style="padding-top: 80px; padding-bottom: 80px; text-align:center;">
-        <div class="container">
-            <div><a href="/Products/{{Type}}/Havells">
-                    <img class="company_Logo" src="/static/img/havells.png" width="200px" height="200px"></a></div>
-        </div>
-    </div>
-
-    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
-        <div class="container">
-            <div class="card cart-block">
-                <div><a href="/Products/{{Type}}/bajaj">
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Bajaj">
                         <img class="company_Logo" src="/static/img/bajaj.jpg" width="200px" height="200px"></a></div>
             </div>
         </div>
@@ -126,8 +175,9 @@
     <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
         <div class="container">
             <div class="card cart-block">
-                <div><a href="/Products/{{Type}}/syska">
-                        <img class="company_Logo" src="/static/img/syska.png" width="200px" height="200px"></a></div>
+                <div><a href="/Products/{{Category}}/{{subCategory}}/GreatWhite">
+                        <img class="company_Logo" src="/static/img/GreatWhite.png" width="200px" height="200px"></a>
+                </div>
             </div>
         </div>
     </div>
@@ -135,57 +185,45 @@
     <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
         <div class="container">
             <div class="card cart-block">
-                <div><a href="/Products/{{Type}}/wipro">
-                        <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a></div>
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Usha">
+                        <img class="company_Logo" src="/static/img/Usha.png" width="200px" height="200px"></a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Orient">
+                        <img class="company_Logo" src="/static/img/Orient.jpg" width="200px" height="200px"></a></div>
+            </div>
+        </div>
+    </div>
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Polycab">
+                        <img class="company_Logo" src="/static/img/Polycab.jpg" width="200px" height="200px"></a></div>
+            </div>
+        </div>
+    </div>
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Others">
+                        <img class="company_Logo" src="/static/img/noProductImage.png" width="200px" height="200px"></a>
+                </div>
             </div>
         </div>
     </div>
 
 
-    <!-----------For SwitchGear Company------------------>
-    {% elif Type == "SwitchGear" %}
+    <!-----------For MCBs Company------------------>
+    {% elif Category == "MCBs" %}
     <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3"
         style="padding-top: 80px; padding-bottom: 80px; text-align:center;">
         <div class="container">
-            <div><a href="/Products/{{Type}}/Havells">
-                    <img class="company_Logo" src="/static/img/Havells.png" width="200px" height="200px"></a></div>
-        </div>
-    </div>
-
-    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
-        <div class="container">
-            <div class="card cart-block">
-                <div><a href="/Products/{{Type}}/Bajaj">
-                        <img class="company_Logo" src="/static/img/Bajaj.jpg" width="200px" height="200px"></a></div>
-            </div>
-        </div>
-    </div>
-
-    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
-        <div class="container">
-            <div class="card cart-block">
-                <div><a href="/Products/{{Type}}/Syska">
-                        <img class="company_Logo" src="/static/img/Syska.png" width="200px" height="200px"></a></div>
-            </div>
-        </div>
-    </div>
-
-    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
-        <div class="container">
-            <div class="card cart-block">
-                <div><a href="/Products/{{Type}}/Wipro">
-                        <img class="company_Logo" src="/static/img/Wipro.png" width="200px" height="200px"></a></div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-----------For Fans Company------------------>
-    {% elif Type == "Fans" %}
-    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3"
-        style="padding-top: 80px; padding-bottom: 80px; text-align:center;">
-        <div class="container">
-            <div><a href="/Products/{{Type}}/Havells">
+            <div><a href="/Products/{{Category}}/{{subCategory}}/Havells">
                     <img class="company_Logo" src="/static/img/havells.png" width="200px" height="200px"></a></div>
         </div>
     </div>
@@ -193,8 +231,8 @@
     <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
         <div class="container">
             <div class="card cart-block">
-                <div><a href="/Products/{{Type}}/bajaj">
-                        <img class="company_Logo" src="/static/img/bajaj.jpg" width="200px" height="200px"></a></div>
+                <div><a href="/Products/{{Category}}/{{subCategory}}/LT">
+                        <img class="company_Logo" src="/static/img/LT.png" width="200px" height="200px"></a></div>
             </div>
         </div>
     </div>
@@ -202,8 +240,9 @@
     <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
         <div class="container">
             <div class="card cart-block">
-                <div><a href="/Products/{{Type}}/syska">
-                        <img class="company_Logo" src="/static/img/syska.png" width="200px" height="200px"></a></div>
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Anchor">
+                        <img class="company_Logo" src="/static/img/Anchor.png" width="200px" height="200px"></a>
+                </div>
             </div>
         </div>
     </div>
@@ -211,49 +250,148 @@
     <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
         <div class="container">
             <div class="card cart-block">
-                <div><a href="/Products/{{Type}}/wipro">
-                        <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a></div>
+                <div><a href="/Products/{{Category}}/{{subCategory}}/GreatWhite">
+                        <img class="company_Logo" src="/static/img/GreatWhite.png" width="200px" height="200px"></a>
+                </div>
             </div>
         </div>
     </div>
 
-    
-     <!-----------For ModernKitchen Company------------------>
-     {% elif Type == "ModernKitchen" %}
-     <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3"
-         style="padding-top: 80px; padding-bottom: 80px; text-align:center;">
-         <div class="container">
-             <div><a href="/Products/{{Type}}/Havells">
-                     <img class="company_Logo" src="/static/img/havells.png" width="200px" height="200px"></a></div>
-         </div>
-     </div>
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <div><a href="/Products/{{Type}}/All">
+                        <img class="company_Logo" src="/static/img/CA.png" width="200px" height="200px"
+                            alt="C&C Company"></a></div>
+            </div>
+        </div>
+    </div>
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Others">
+                        <img class="company_Logo" src="/static/img/noProductImage.png" width="200px" height="200px"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <!-----------For Wires and cables Company------------------>
+    {% elif Category == "WiresAndCables" %}
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3"
+        style="padding-top: 80px; padding-bottom: 80px; text-align:center;">
+        <div class="container">
+            <div><a href="/Products/{{Category}}/{{subCategory}}/Havells">
+                    <img class="company_Logo" src="/static/img/havells.png" width="200px" height="200px"></a></div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Polycab">
+                        <img class="company_Logo" src="/static/img/Polycab.JPG" width="200px" height="200px"></a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Anchor">
+                        <img class="company_Logo" src="/static/img/Anchor.png" width="200px" height="200px"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <div><a href="/Products/{{Type}}/Kei">
+                        <img class="company_Logo" src="/static/img/Kei.jpg" width="200px" height="200px"></a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <div><a href="/Products/{{Category}}/{{subCategory}}/RRCables">
+                        <img class="company_Logo" src="/static/img/RRCables.jpg" width="200px" height="200px"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Others">
+                        <img class="company_Logo" src="/static/img/noProductImage.png" width="200px" height="200px"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <!-----------For PipeAndBit Company------------------>
+    {% elif Category == "PipeAndBit" %}
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3"
+        style="padding-top: 80px; padding-bottom: 80px; text-align:center;">
+        <div class="container">
+            <div><a href="/Products/{{Category}}/{{subCategory}}/Havells">
+                    <img class="company_Logo" src="/static/img/havells.png" width="200px" height="200px"></a></div>
+        </div>
+    </div>
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Anchor">
+                        <img class="company_Logo" src="/static/img/Anchor.png" width="200px" height="200px"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Usha">
+                        <img class="company_Logo" src="/static/img/Usha.png" width="200px" height="200px"></a></div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+        <div class="container">
+            <div class="card cart-block">
+                <div><a href="/Products/{{Category}}/{{subCategory}}/Others">
+                        <img class="company_Logo" src="/static/img/noProductImage.png" width="200px" height="200px"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-----------For OTHERS Company------------------>
+     {% elif Category == "Others" %}
+     
  
-     <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
+     
+     <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3 m-x-auto" style="padding-top: 80px; padding-bottom: 80px;">
          <div class="container">
              <div class="card cart-block">
-                 <div><a href="/Products/{{Type}}/bajaj">
-                         <img class="company_Logo" src="/static/img/bajaj.jpg" width="200px" height="200px"></a></div>
+                 <div><a href="/Products/{{Category}}/{{subCategory}}/Others">
+                         <img class="company_Logo" src="/static/img/noProductImage.png" width="200px" height="200px"></a>
+                 </div>
              </div>
          </div>
      </div>
- 
-     <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
-         <div class="container">
-             <div class="card cart-block">
-                 <div><a href="/Products/{{Type}}/syska">
-                         <img class="company_Logo" src="/static/img/syska.png" width="200px" height="200px"></a></div>
-             </div>
-         </div>
-     </div>
- 
-     <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3" style="padding-top: 80px; padding-bottom: 80px;">
-         <div class="container">
-             <div class="card cart-block">
-                 <div><a href="/Products/{{Type}}/wipro">
-                         <img class="company_Logo" src="/static/img/wipro.png" width="200px" height="200px"></a></div>
-             </div>
-         </div>
-     </div>
+
     {% else %}
     <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top: 80px; padding-bottom: 80px;">
         <div class="container">
@@ -270,7 +408,7 @@
             </div>
         </div>
     </div>
-    {% endif %}    
+    {% endif %}
     </div>
 </section>
 
